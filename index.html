@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>image-magician</title>
+    <style>
+        h1.title{
+            margin-bottom: 30px;
+            padding:20px 0;
+            text-align: center;
+            font-weight: 500;
+            border-bottom: 1px solid
+        }
+        .demo-section {
+            width: 300px;
+            height: 300px;
+            text-align: center;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            float: left;
+            margin: 0 50px 50px 0;
+            box-shadow: 0 0 2px rgba(0, 0, 0, .1)
+        }
+
+        .demo-section img {
+            max-width: 100%;
+        }
+
+        .demo-section .title {
+            font-weight: 500
+        }
+
+        .demo-section .demo-content {
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="title">image-magician.js | 图片常用的处理函数库</h1>
+    <div class="demo-section base">
+        <h3 class="title">初始图片</h3>
+        <p class="demo-content base-content">
+            <img src="" alt="" class="base-img">
+        </p>
+    </div>
+    <div class="demo-section compress">
+        <h3 class="title">compressImage()</h3>
+        <p class="demo-content compress-content"></p>
+    </div>
+    <div class="demo-section base64Url">
+        <h3 class="title">toBase64Url()</h3>
+        <p class="demo-content base64Url-content"></p>
+    </div>
+    <div class="demo-section clipImage">
+        <h3 class="title">clipImage()</h3>
+        <p class="demo-content clipImage-content"></p>
+    </div>
+</body>
+<script src="./libs/image-magician.js"></script>
+<script>
+    const baseImageUrl = './images/demo.png'
+    
+    const $ = (seletor) => document.querySelector(seletor)
+    const _img = new imageMagician()
+
+    $('.base-img').src = baseImageUrl
+    //图片转base64
+    _img.toBase64Url({ cover: baseImageUrl })
+        .then((url) => {
+            _img.createImageNode(url).then((data) => {
+                $('.base64Url-content').appendChild(data)
+            })
+        })
+        .catch((err) => {
+            console.log('error', err);
+        })
+
+    //压缩图片
+    _img.compressImage({
+        cover: baseImageUrl,
+        quality: 0.22,
+    }).then((imageNode) => {
+        $('.compress-content').appendChild(imageNode)
+    }).catch((err) => {
+        console.log('error', err);
+    })
+
+    //TODO clipImage()  裁剪图片 内置几种形状  圆形  矩形
+
+</script>
+
+</html>
