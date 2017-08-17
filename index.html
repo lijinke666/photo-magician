@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>image-magician</title>
+    <title>image-magician examples</title>
     <style>
         h1.title {
             margin-bottom: 30px;
@@ -14,9 +14,17 @@
             font-weight: 500;
             border-bottom: 1px solid
         }
+        .flex{
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 50px 20px;
+        }
 
         .demo-section {
-            width: 440px;
+            flex-basis: 440px;
             height: 440px;
             text-align: center;
             border: 1px solid #ccc;
@@ -43,55 +51,57 @@
 
 <body>
     <h1 class="title">image-magician.js | 图片常用的处理函数库</h1>
-    <div class="demo-section base">
-        <h3 class="title">初始图片</h3>
-        <p class="demo-content base-content">
-            <img src="" alt="" class="base-img">
-        </p>
-    </div>
-    <div class="demo-section compress">
-        <h3 class="title">压缩:compressImage()</h3>
-        <p class="demo-content compress-content"></p>
-    </div>
-    <div class="demo-section base64Url">
-        <h3 class="title">base64:toBase64Url()</h3>
-        <p class="demo-content base64Url-content"></p>
-    </div>
-    <div class="demo-section clipImage">
-        <h3 class="title">裁剪:clipImage()</h3>
-        <p class="demo-content clipImage-content"></p>
-    </div>
-    <div class="demo-section addWaterMark">
-        <h3 class="title">图片水印:addWaterMark()</h3>
-        <p class="demo-content addWaterMark-img-content"></p>
-    </div>
-    <div class="demo-section addWaterMark">
-        <h3 class="title">文字水印:addWaterMark()</h3>
-        <p class="demo-content addWaterMark-text-content"></p>
-    </div>
-    <div class="demo-section addImageFilter">
-        <h3 class="title">复古滤镜:addWaterMark()</h3>
-        <p class="demo-content vintage-content"></p>
-    </div>
-    <div class="demo-section addImageFilter">
-        <h3 class="title">黑白滤镜:addWaterMark()</h3>
-        <p class="demo-content blackWhite-content"></p>
-    </div>
-    <div class="demo-section addImageFilter">
-        <h3 class="title">浮雕滤镜:addWaterMark()</h3>
-        <p class="demo-content relief-content"></p>
-    </div>
-    <div class="demo-section addImageFilter">
-        <h3 class="title">反色滤镜:addWaterMark()</h3>
-        <p class="demo-content invert-content"></p>
-    </div>
-    <div class="demo-section addImageFilter">
-        <h3 class="title">镜像滤镜:addWaterMark()</h3>
-        <p class="demo-content mirror-content"></p>
-    </div>
-    <div class="demo-section addImageFilter">
-        <h3 class="title">模糊滤镜:addWaterMark()</h3>
-        <p class="demo-content blur-content"></p>
+    <div class="flex">
+        <div class="demo-section base">
+            <h3 class="title">初始图片</h3>
+            <p class="demo-content base-content">
+                <img src="" alt="" class="base-img">
+            </p>
+        </div>
+        <div class="demo-section compress">
+            <h3 class="title">压缩:compressImage()</h3>
+            <p class="demo-content compress-content"></p>
+        </div>
+        <div class="demo-section base64Url">
+            <h3 class="title">base64:toBase64Url()</h3>
+            <p class="demo-content base64Url-content"></p>
+        </div>
+        <div class="demo-section clipImage">
+            <h3 class="title">裁剪:clipImage()</h3>
+            <p class="demo-content clipImage-content"></p>
+        </div>
+        <div class="demo-section addWaterMark">
+            <h3 class="title">图片水印:addWaterMark()</h3>
+            <p class="demo-content addWaterMark-img-content"></p>
+        </div>
+        <div class="demo-section addWaterMark">
+            <h3 class="title">文字水印:addWaterMark()</h3>
+            <p class="demo-content addWaterMark-text-content"></p>
+        </div>
+        <div class="demo-section addImageFilter">
+            <h3 class="title">复古滤镜:addWaterMark()</h3>
+            <p class="demo-content vintage-content"></p>
+        </div>
+        <div class="demo-section addImageFilter">
+            <h3 class="title">黑白滤镜:addWaterMark()</h3>
+            <p class="demo-content blackWhite-content"></p>
+        </div>
+        <div class="demo-section addImageFilter">
+            <h3 class="title">浮雕滤镜:addWaterMark()</h3>
+            <p class="demo-content relief-content"></p>
+        </div>
+        <div class="demo-section addImageFilter">
+            <h3 class="title">反色滤镜:addWaterMark()</h3>
+            <p class="demo-content invert-content"></p>
+        </div>
+        <div class="demo-section addImageFilter">
+            <h3 class="title">镜像滤镜:addWaterMark()</h3>
+            <p class="demo-content mirror-content"></p>
+        </div>
+        <div class="demo-section addImageFilter">
+            <h3 class="title">模糊滤镜:addWaterMark()</h3>
+            <p class="demo-content blur-content"></p>
+        </div>
     </div>
 </body>
 <script src="./libs/image-magician.js"></script>
@@ -226,7 +236,6 @@
     }).catch((err) => {
         console.error('add image filter error', err);
     })
-
 
 </script>
 
