@@ -104,13 +104,15 @@
         </div>
     </div>
 </body>
-<script src="./libs/image-magician.js"></script>
+<script src="./src/image-magician.js"></script>
 <script>
     const baseImageUrl = './images/demo.jpg'
     const watermark = './images/watermark.png'
 
     const $ = (seletor) => document.querySelector(seletor)
-    const _img = new imageMagician()
+
+
+    const _img = new ImageMagician()
 
     $('.base-img').src = baseImageUrl
 
@@ -236,6 +238,7 @@
     }).catch((err) => {
         console.error('add image filter error', err);
     })
+    
 
 </script>
 

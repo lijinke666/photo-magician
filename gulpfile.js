@@ -18,14 +18,13 @@ const pathBuild = (p) => {
 }
 //压缩js
 gulp.task("buildjs", () => {
-  console.log('================[build js start]===================')
-  gulp.src([ pathBuild("libs/*.js")])
+  gulp.src([ pathBuild("src/*.js")])
     .pipe(concat("image-magician.min.js"))
     .pipe(babel())
-    // .pipe(jsmin({
-    //   mangle: true,//类型：Boolean 默认：true 是否修改变量名
-    //   compress: true//类型：Boolean 默认：true 是否完全压缩
-    // }))
+    .pipe(jsmin({
+      mangle: true,//类型：Boolean 默认：true 是否修改变量名
+      compress: true//类型：Boolean 默认：true 是否完全压缩
+    }))
     .pipe(gulp.dest(pathBuild("libs/")))
     .pipe(reload({stream:true}))
 })
@@ -37,6 +36,6 @@ gulp.task('server',['buildjs'],()=>{
       baseDir:"./"
     }
   })
-  gulp.watch(pathBuild('libs/*.js'),['buildjs']);
+  // gulp.watch(pathBuild('libs/*.js'),['buildjs']);
   gulp.watch(pathBuild('src/views/*.html')).on('change',reload);
 })

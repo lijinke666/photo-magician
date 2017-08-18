@@ -1,5 +1,10 @@
-((window,document)=>{
-    class imageMagician {
+/**
+ * image-magician.js
+ * @author Jinke.Li
+ * @github https://www.github.com/lijinke666/
+ */
+((window,document) => {
+    class ImageMagician {
         constructor() {
             this.cover = null
             this.canvas = document.createElement('canvas')
@@ -38,7 +43,6 @@
             this.checkCoverType(cover)
             return cover.replace(/.*\.(jpg|jpeg|png|gif)/, "$1")
         }
-
         setCanvasWidth(width, height) {
             this.canvas.width = width
             this.canvas.height = height
@@ -59,7 +63,7 @@
          * @param {NUmber} height 图片水印高度 (图片水印时有效) 非必选 默认 '50'
          */
         async addWaterMark({
-        cover,
+            cover,
             coordinate = [0, 0],
             fontBold = true,
             fontSize = 20,
@@ -69,7 +73,7 @@
             height = 50,
             opacity = 0.5,
             waterMark
-    } = options) {
+        } = options) {
             const isTextMode = Object.is(mode, 'text')
             const isImageMode = Object.is(mode, 'image')
             if (!waterMark) throw new Error('waterMark is required')
@@ -127,10 +131,10 @@
         * @return 裁剪后的图片节点
         */
         clipImage({
-        cover,
+            cover,
             scale = 1.0,
             coordinate
-    } = options
+        } = options
         ) {
             return new Promise((res, rej) => {
                 const ext = this.getCoverExt(cover)
@@ -320,9 +324,9 @@
          * @param {String} mode 滤镜名字 非必须 默认 复古 'vintage' 
          */
         addImageFilter({
-        cover,
+            cover,
             mode = this.imageFilterConfig['vintage']
-    } = options
+        } = options
         ) {
             return new Promise((res, rej) => {
                 const ext = this.getCoverExt(cover)
@@ -343,8 +347,8 @@
          * @return 图片base64 data
          */
         toBase64Url({
-        cover
-    }) {
+            cover
+        }) {
             return new Promise((res, rej) => {
                 const ext = this.getCoverExt(cover)
                 this.createImageNode(cover).then((img) => {
@@ -362,9 +366,9 @@
          * @return 压缩后的图片节点
          */
         compressImage({
-        cover,
+            cover,
             quality = 0.92,
-    } = options
+        } = options
         ) {
             return new Promise((res, rej) => {
                 this.createImageNode(cover).then((img) => {
@@ -377,7 +381,8 @@
             })
         }
     }
-    window['imageMagician'] = imageMagician
+    window['ImageMagician'] = ImageMagician
 })(window,document)
+
 
 

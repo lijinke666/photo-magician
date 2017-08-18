@@ -1,17 +1,37 @@
 {
-  "repository": "https://github.com/lijinke666/image-magician.git",
+  "name": "image-magician",
+  "version": "0.3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lijinke666/image-magician.git"
+  },
+  "main": "libs/image-magician.min.js",
   "author": "jinke.li",
   "license": "MIT",
+  "keywords": [
+    "photo",
+    "npm",
+    "cover",
+    "image",
+    "images",
+    "filter",
+    "image-magician",
+    "magician",
+    "clip",
+    "compress"
+  ],
   "scripts": {
-    "start": "yarn run dev",
-    "dev": "yarn run clean && gulp server",
-    "clean": "rimraf src/build",
-    "buildImage": "gulp buildimage",
-    "buildCss": "gulp buildcss",
-    "buildJs": "gulp buildjs",
+    "start": "npm run dev",
+    "dev": "npm run clean && gulp server",
+    "clean": "rimraf ./libs/image-magician.min.js && rimraf ./libs/image-magician.js",
+    "browser": "browserify ./libs/image-magician.js -o ./libs/image-magician.js",
+    "build": "babel ./src/image-magician.js --out-file ./libs/image-magician.js",
+    "uglifyjs": "gulp buildjs",
+    "prod": "npm run clean && npm run uglifyjs",
     "update": "yarn upgrade"
   },
   "devDependencies": {
+    "babel-plugin-syntax-async-functions": "^6.13.0",
     "babel-plugin-transform-async-to-generator": "^6.22.0",
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
@@ -36,6 +56,7 @@
     "npm-check": "^5.4.0"
   },
   "dependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
     "rimraf": "^2.6.1"
   }
 }
