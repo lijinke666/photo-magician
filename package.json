@@ -24,8 +24,7 @@
     "start": "npm run dev",
     "dev": "npm run clean && gulp server",
     "clean": "rimraf ./libs/image-magician.min.js && rimraf ./libs/image-magician.js",
-    "browser": "browserify ./libs/image-magician.js -o ./libs/image-magician.js",
-    "build": "babel ./src/image-magician.js --out-file ./libs/image-magician.js",
+    "build": "babel ./src/image-magician.js --out-file ./libs/image-magician.min.js",
     "uglifyjs": "gulp buildjs",
     "prod": "npm run clean && npm run uglifyjs",
     "update": "yarn upgrade"

@@ -341,9 +341,32 @@
             })
         }
         /**
+         * 旋转图片
+         * @param {String | Object} cover 图片
+         * @param {Number} rotate 旋转比例 (0 -360 ) deg
+         */
+        rotateImage({
+            cover,
+            rotate = 0
+        }){
+            return new Promise((res, rej) => {
+                const ext = this.getCoverExt(cover)
+                this.createImageNode(cover).then((img) => {
+                    this.ctx.save()
+                    this.ctx.rotate(rotate * Math.PI / 180)
+                    this.ctx.drawImage(img, 0, 0, img.width, img.height)
+                    this.ctx.restore()
+                    const base64URL = this.canvas.toDataURL(`image/${ext}`)
+                    this.createImageNode(base64URL).then((node) => {
+                        res(node)
+                    }).catch(rej)
+                }).catch(rej)
+            })
+        }
+        /**
          * 图片 转base64
          * @param {Object} options 
-         * @param {String} cover 图片地址 
+         * @param {String | Object} cover 图片地址 
          * @return 图片base64 data
          */
         toBase64Url({
