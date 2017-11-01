@@ -21,7 +21,7 @@
     const $ = (seletor) => document.querySelector(seletor)
 
 
-    const _img = new ImageMagician()
+    const _img = new imageMagician()
 
     $('.base-img').src = baseImageUrl
 

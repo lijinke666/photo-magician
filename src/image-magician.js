@@ -2,9 +2,23 @@
  * image-magician.js
  * @author Jinke.Li
  * @github https://www.github.com/lijinke666/
+ * 图片滤镜算法代码 参考网上代码
  */
-((window,document) => {
-    class ImageMagician {
+const VERSION = "0.3.0"
+const PACKAGE_NAME = "imageMagician"
+
+;((name,definition)=>{
+    const hasDefine = typeof define === 'function'
+    const hasExports = typeof module !== 'undefined' && module.exports
+    if(hasDefine){
+        define(definition)
+    }else if (hasExports){
+        module.exports = definition()
+    }else{
+        this[name] = definition()
+    }
+})(PACKAGE_NAME,()=>{
+    class ImageMagician {   
         constructor() {
             this.cover = null
             this.canvas = document.createElement('canvas')
@@ -73,7 +87,7 @@
             height = 50,
             opacity = 0.5,
             waterMark
-        } = options) {
+        } = {}) {
             const isTextMode = Object.is(mode, 'text')
             const isImageMode = Object.is(mode, 'image')
             if (!waterMark) throw new Error('waterMark is required')
@@ -134,7 +148,7 @@
             cover,
             scale = 1.0,
             coordinate
-        } = options
+        } = {}
         ) {
             return new Promise((res, rej) => {
                 const ext = this.getCoverExt(cover)
@@ -154,7 +168,7 @@
             })
         }
         //拷贝图片像素信息
-        copyImageData({ width, height, data }) {
+        copyImageData({ width, height, data } = {}) {
             const copyData = this.ctx.createImageData(width, height)
             copyData.data.set(data)
             return copyData
@@ -326,7 +340,7 @@
         addImageFilter({
             cover,
             mode = this.imageFilterConfig['vintage']
-        } = options
+        } = {}
         ) {
             return new Promise((res, rej) => {
                 const ext = this.getCoverExt(cover)
@@ -348,7 +362,7 @@
         rotateImage({
             cover,
             rotate = 0
-        }){
+        } = {} ){
             return new Promise((res, rej) => {
                 const ext = this.getCoverExt(cover)
                 this.createImageNode(cover).then((img) => {
@@ -391,7 +405,7 @@
         compressImage({
             cover,
             quality = 0.92,
-        } = options
+        } = {}
         ) {
             return new Promise((res, rej) => {
                 this.createImageNode(cover).then((img) => {
@@ -404,8 +418,8 @@
             })
         }
     }
-    window['ImageMagician'] = ImageMagician
-})(window,document)
+    return ImageMagician
+})
 
 
 

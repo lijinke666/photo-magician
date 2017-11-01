@@ -1,9 +1,22 @@
 {
-    "presets": [
-        "es2015",
+    "presets": [       
+        [
+          "es2015",
+          {
+            "modules": false
+          }
+        ],
         "stage-1"
-    ],
+      ],
     "plugins": [
-        "transform-runtime"
+        "transform-async-to-generator",     //支持async写法
+        "transform-es2015-modules-commonjs",
+        "transform-object-rest-spread",
+        "transform-class-properties",
+        ["transform-runtime", {
+            "helpers": false,
+            "polyfill": true,
+            "regenerator": true
+        }]
     ]
 }
