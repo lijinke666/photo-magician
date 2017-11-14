@@ -44,6 +44,25 @@
     })
 
     /**
+     * 获取 图片主色调
+     * @param {Object} options 
+     * @param {String | Object} cover 图片地址 或者图片节点 
+     * @return primaryColor 
+     */
+
+    _img.getPrimaryColor({
+        cover: watermark
+    }).then((primaryColor) => {
+        $('.primaryColor').style.border = `1px solid ${primaryColor}`
+        $('.primaryColor-content').innerHTML = `
+            <p><img src='${watermark}'></p>
+            <strong>${primaryColor}</strong>
+        `
+    }).catch((err) => {
+        console.error('getPrimaryColor error', err);
+    })
+
+    /**
      * 压缩图片
      * @param {Object} options 
      * @param {String | Object} cover 图片地址 或者图片节点 

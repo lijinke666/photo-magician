@@ -14,7 +14,8 @@
             font-weight: 500;
             border-bottom: 1px solid
         }
-        .flex{
+
+        .flex {
             display: flex;
             justify-content: center;
             align-content: center;
@@ -31,7 +32,8 @@
             overflow: hidden;
             float: left;
             margin: 0 50px 50px 0;
-            box-shadow: 0 0 2px rgba(0, 0, 0, .1)
+            box-shadow: 0 0 2px rgba(0, 0, 0, .1);
+            position: relative;
         }
 
         .demo-section img {
@@ -45,6 +47,26 @@
 
         .demo-section .demo-content {
             border-top: 1px solid #ccc;
+        }
+
+        .demo-section:hover .preview {
+            transform: scale(1)
+        }
+
+        .demo-section .preview {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 440px;
+            background: rgba(0, 0, 0, 0.637);
+            font-size: 30px;
+            color: #396;
+            line-height: 440px;
+            text-align: center;
+            transition: .3s ease-in-out;
+            transform: scale(0);
+            cursor: pointer;
         }
     </style>
 </head>
@@ -65,6 +87,10 @@
         <div class="demo-section base64Url">
             <h3 class="title">base64:toBase64Url()</h3>
             <p class="demo-content base64Url-content"></p>
+        </div>
+        <div class="demo-section primaryColor">
+            <h3 class="title">图片主色调:getPrimaryColor()</h3>
+            <p class="demo-content primaryColor-content"></p>
         </div>
         <div class="demo-section clipImage">
             <h3 class="title">裁剪:clipImage()</h3>
@@ -109,6 +135,7 @@
     </div>
 </body>
 <script src="./src/image-magician.js"></script>
+<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 <script>
     const baseImageUrl = './images/demo.jpg'
     const watermark = './images/watermark.png'
@@ -126,7 +153,7 @@
      * @param {String | Object} cover 图片地址 或者图片节点 
      * @return 图片base64 data
      */
-    
+
     _img.toBase64Url({
         cover: baseImageUrl
     }).then((url) => {
@@ -135,6 +162,26 @@
         })
     }).catch((err) => {
         console.error('toBase64Url error', err);
+    })
+
+
+    /**
+     * 获取 图片主色调
+     * @param {Object} options 
+     * @param {String | Object} cover 图片地址 或者图片节点 
+     * @return primaryColor 
+     */
+
+    _img.getPrimaryColor({
+        cover: watermark
+    }).then((primaryColor) => {
+        $('.primaryColor').style.border = `1px solid ${primaryColor}`
+        $('.primaryColor-content').innerHTML = `
+            <p><img src='${watermark}'></p>
+            <strong>${primaryColor}</strong>
+        `
+    }).catch((err) => {
+        console.error('getPrimaryColor error', err);
     })
 
     /**
@@ -177,14 +224,14 @@
      * @param {Number} rotate 旋转比例 (0 -360 ) °
      */
     _img.rotateImage({
-        cover:baseImageUrl,
-        rotate:20,
-    }).then((imageNode)=>{
+        cover: baseImageUrl,
+        rotate: 20,
+    }).then((imageNode) => {
         $('.rotateImage-content').appendChild(imageNode)
-    }).catch((err)=>{
-        console.error('rotateImage error',err);
+    }).catch((err) => {
+        console.error('rotateImage error', err);
     })
-    
+
 
     /**
      * 添加水印 (文本水印 | 图片水印)
@@ -301,7 +348,7 @@
     }).catch((err) => {
         console.error('add image filter error', err);
     })
-    
+
 
 </script>
 

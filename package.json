@@ -1,6 +1,6 @@
 {
   "name": "image-magician",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Provide some common image manipulation apis",
   "repository": {
     "type": "git",
@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/lijinke666/image-magician/issues"
   },
-  "main": "libs/image-magician.js",
+  "main": "src/image-magician.js",
   "author": "jinke.li",
   "license": "MIT",
   "keywords": [
