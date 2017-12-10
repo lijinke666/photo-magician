@@ -14,8 +14,7 @@
             font-weight: 500;
             border-bottom: 1px solid
         }
-
-        .flex {
+        .flex{
             display: flex;
             justify-content: center;
             align-content: center;
@@ -32,8 +31,7 @@
             overflow: hidden;
             float: left;
             margin: 0 50px 50px 0;
-            box-shadow: 0 0 2px rgba(0, 0, 0, .1);
-            position: relative;
+            box-shadow: 0 0 2px rgba(0, 0, 0, .1)
         }
 
         .demo-section img {
@@ -47,26 +45,6 @@
 
         .demo-section .demo-content {
             border-top: 1px solid #ccc;
-        }
-
-        .demo-section:hover .preview {
-            transform: scale(1)
-        }
-
-        .demo-section .preview {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 440px;
-            background: rgba(0, 0, 0, 0.637);
-            font-size: 30px;
-            color: #396;
-            line-height: 440px;
-            text-align: center;
-            transition: .3s ease-in-out;
-            transform: scale(0);
-            cursor: pointer;
         }
     </style>
 </head>
@@ -88,17 +66,9 @@
             <h3 class="title">base64:toBase64Url()</h3>
             <p class="demo-content base64Url-content"></p>
         </div>
-        <div class="demo-section primaryColor">
-            <h3 class="title">图片主色调:getPrimaryColor()</h3>
-            <p class="demo-content primaryColor-content"></p>
-        </div>
         <div class="demo-section clipImage">
             <h3 class="title">裁剪:clipImage()</h3>
             <p class="demo-content clipImage-content"></p>
-        </div>
-        <div class="demo-section clipImage">
-            <h3 class="title">旋转:rotateImage()</h3>
-            <p class="demo-content rotateImage-content"></p>
         </div>
         <div class="demo-section addWaterMark">
             <h3 class="title">图片水印:addWaterMark()</h3>
@@ -109,51 +79,43 @@
             <p class="demo-content addWaterMark-text-content"></p>
         </div>
         <div class="demo-section addImageFilter">
-            <h3 class="title">复古滤镜:addWaterMark()</h3>
+            <h3 class="title">复古滤镜:addImageFilter()</h3>
             <p class="demo-content vintage-content"></p>
         </div>
         <div class="demo-section addImageFilter">
-            <h3 class="title">黑白滤镜:addWaterMark()</h3>
+            <h3 class="title">黑白滤镜:addImageFilter()</h3>
             <p class="demo-content blackWhite-content"></p>
         </div>
         <div class="demo-section addImageFilter">
-            <h3 class="title">浮雕滤镜:addWaterMark()</h3>
+            <h3 class="title">浮雕滤镜:addImageFilter()</h3>
             <p class="demo-content relief-content"></p>
         </div>
         <div class="demo-section addImageFilter">
-            <h3 class="title">反色滤镜:addWaterMark()</h3>
+            <h3 class="title">反色滤镜:addImageFilter()</h3>
             <p class="demo-content invert-content"></p>
         </div>
         <div class="demo-section addImageFilter">
-            <h3 class="title">镜像滤镜:addWaterMark()</h3>
+            <h3 class="title">镜像滤镜:addImageFilter()</h3>
             <p class="demo-content mirror-content"></p>
         </div>
         <div class="demo-section addImageFilter">
-            <h3 class="title">模糊滤镜:addWaterMark()</h3>
+            <h3 class="title">模糊滤镜:addImageFilter()</h3>
             <p class="demo-content blur-content"></p>
         </div>
     </div>
 </body>
 <script src="./src/image-magician.js"></script>
-<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 <script>
     const baseImageUrl = './images/demo.jpg'
     const watermark = './images/watermark.png'
 
     const $ = (seletor) => document.querySelector(seletor)
-
-
     const _img = new imageMagician()
 
     $('.base-img').src = baseImageUrl
 
-    /**
-     * 图片 转base64
-     * @param {Object} options 
-     * @param {String | Object} cover 图片地址 或者图片节点 
-     * @return 图片base64 data
-     */
 
+    // 图片转base64
     _img.toBase64Url({
         cover: baseImageUrl
     }).then((url) => {
@@ -164,33 +126,7 @@
         console.error('toBase64Url error', err);
     })
 
-
-    /**
-     * 获取 图片主色调
-     * @param {Object} options 
-     * @param {String | Object} cover 图片地址 或者图片节点 
-     * @return primaryColor 
-     */
-
-    _img.getPrimaryColor({
-        cover: watermark
-    }).then((primaryColor) => {
-        $('.primaryColor').style.border = `1px solid ${primaryColor}`
-        $('.primaryColor-content').innerHTML = `
-            <p><img src='${watermark}'></p>
-            <strong>${primaryColor}</strong>
-        `
-    }).catch((err) => {
-        console.error('getPrimaryColor error', err);
-    })
-
-    /**
-     * 压缩图片
-     * @param {Object} options 
-     * @param {String | Object} cover 图片地址 或者图片节点 
-     * @param {Number}  quality 压缩比例  非必选 (0-1) 默认 '0.92'
-     * @return 图片base64 data (jpg格式)
-     */
+    //压缩图片
     _img.compressImage({
         cover: baseImageUrl,
         quality: 0.12,
@@ -200,14 +136,7 @@
         console.error('compressImage error', err);
     })
 
-    /**
-     * 裁剪图片
-    * @param {object} Options 
-    * @param {String | Object} cover 图片节点 或者 图片地址 必选 
-    * @param {Number} scale 缩放比例  非必选 默认 1.0 不缩放 
-    * @param {Array} coordinate 裁剪坐标  必选  [[x1,y1],[x2,y2]]
-    * @return 裁剪后的图片节点
-    */
+    //裁剪图片
     _img.clipImage({
         cover: baseImageUrl,
         scale: 1.0,
@@ -218,33 +147,7 @@
         console.error('clipImage error', err);
     })
 
-    /**
-     * 旋转图片
-     * @param {String | Object} cover 图片地址或节点
-     * @param {Number} rotate 旋转比例 (0 -360 ) °
-     */
-    _img.rotateImage({
-        cover: baseImageUrl,
-        rotate: 20,
-    }).then((imageNode) => {
-        $('.rotateImage-content').appendChild(imageNode)
-    }).catch((err) => {
-        console.error('rotateImage error', err);
-    })
-
-
-    /**
-     * 添加水印 (文本水印 | 图片水印)
-     * @param {Object} options 
-     * @param {String | Object} cover 目标图片 或者图片节点 必选
-     * @param {String} waterMark 水印 (文本或图片地址) 必选
-     * @param {String} mode 水印模式 非必选  text | image 默认 "text"
-     * @param {Boolean} fontBold 文本水印加粗 (文字水印时有效) 非必选 默认 true
-     * @param {Number} fontSize 文本字体大小 (文字水印时有效) 非必选 默认 20
-     * @param {String} fontColor 文本水印颜色 (文字水印时有效) 非必选 默认 'rgba(255,255,255,.5)'
-     * @param {Number} width 图片水印长度 (图片水印时有效) 非必选 默认 '50'
-     * @param {NUmber} height 图片水印高度 (图片水印时有效) 非必选 默认 '50'
-     */
+    //添加水印 (图片)
     _img.addWaterMark({
         cover: baseImageUrl,
         mode: "image",
@@ -259,10 +162,7 @@
         console.error('add image WaterMark error', err);
     })
 
-    /**
-     * 添加文字水印 
-     * @params 同上
-     */
+    //添加水印 (文字)
     _img.addWaterMark({
         cover: baseImageUrl,
         mode: "text",
@@ -277,19 +177,7 @@
         console.error('add text WaterMark error', err);
     })
 
-    /**
-     * 添加图片滤镜
-     * @params {Object} options
-     * @params {String | Object} cover 图片地址 或节点
-     * @params {String} mode  滤镜模式
-     * {可选如下}
-     * vintage          //复古
-     * blackWhite       //黑白
-     * invert           //反色
-     * relief           //浮雕
-     * mirror           //镜像
-     * blur             //模糊
-     */
+    //添加图片滤镜  (复古)
     _img.addImageFilter({
         cover: baseImageUrl,
         mode: "vintage"
@@ -348,7 +236,6 @@
     }).catch((err) => {
         console.error('add image filter error', err);
     })
-
 
 </script>
 
