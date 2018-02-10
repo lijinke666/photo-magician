@@ -1,8 +1,8 @@
 # image-magician
 图片魔法师,提供一些 常用的 图片操作api ,基于promise,如 图片压缩,图片裁剪,图片加水印,图片滤镜
 
-## 
-### [online demo](https://lijinke666.github.io/image-magician/)
+## Example
+[https://lijinke666.github.io/image-magician/](https://lijinke666.github.io/image-magician/)
 
 
 ## Usage
@@ -11,7 +11,7 @@
 ```
 
 
-## Example And Api
+## Api
 ```js
 <script src="./src/image-magician.js"></script>
 <script>
