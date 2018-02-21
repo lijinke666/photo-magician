@@ -6,8 +6,11 @@
 
 
 ## Usage
+```
+git clone https://github.com/lijinke666/image-magician.git
+```
 ```js
-<script src="/src/image-magician.js"><script>
+<script src="./src/image-magician.js"><script>
 ```
 
 
@@ -139,7 +142,7 @@
 
     /**
      * 添加文字水印 
-     * @params 同上
+     * @param 同上
      */
     _img.addWaterMark({
         cover: baseImageUrl,
@@ -157,9 +160,9 @@
 
     /**
      * 添加图片滤镜
-     * @params {Object} options
-     * @params {String | Object} cover 图片地址 或节点
-     * @params {String} mode  滤镜模式
+     * @param {Object} options
+     * @param {String | Object} cover 图片地址 或节点
+     * @param {String} mode  滤镜模式
      * {可选如下}
      * vintage          //复古
      * blackWhite       //黑白
