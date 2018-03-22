@@ -13,7 +13,8 @@ const PACKAGE_NAME = "imageMagician"
         if (hasDefine) {
             define(definition)
         } else if (hasExports) {
-            module.exports = definition()
+            exports.default = definition()
+            module.exports = exports['default']
         } else {
             this[name] = definition()
         }
@@ -444,11 +445,11 @@ const PACKAGE_NAME = "imageMagician"
                     }).catch(rej)
                 })
             }
-            getMax(data) {
+            static getMax(data) {
                 const sort = Object.values(data).sort((a, b) => a.num - b.num);
                 return sort[sort.length - 1]['color']
             }
-            getValues(obj) {
+            static getValues(obj) {
                 return Object.values && Object.values(obj) || Object.keys(obj).map(v => obj[v])
             }
         }

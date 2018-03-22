@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/lijinke666/image-magician/issues"
   },
-  "main": "src/image-magician.js",
+  "main": "index.js",
   "author": "jinke.li",
   "license": "MIT",
   "keywords": [
@@ -28,8 +28,11 @@
   "scripts": {
     "start":"http-server",
     "clean": "rimraf lib",
-    "buildjs": "babel src -d lib",
-    "pub": "npm run clean && npm run buildjs",
+    "minify":"uglifyjs lib/image-magician.js -o lib/image-magician.min.js  --compress --mangle",
+    "build:node": "babel src -d lib && npm run minify",
+    "build":"npm run clean && npm run build:node",
+    "test":"mocha -t 20000 --require intelli-espower-loader ./__tests__",
+    "pub": "npm run clean && npm run build",
     "update": "yarn upgrade",
     "prepublish": "npm run pub"
   },
