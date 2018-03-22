@@ -1,5 +1,5 @@
 # image-magician
-图片魔法师,提供一些 常用的 图片操作api ,基于promise,如 图片压缩,图片裁剪,图片加水印,图片滤镜
+图片魔法师,提供一些 基于 canvas 和 promise 的 常用图片操作api , 如 图片压缩,图片裁剪,图片加水印,图片滤镜
 
 ## Example
 [https://lijinke666.github.io/image-magician/](https://lijinke666.github.io/image-magician/)
