@@ -4,31 +4,40 @@
 ## Example
 [https://lijinke666.github.io/image-magician/](https://lijinke666.github.io/image-magician/)
 
-
 ## Usage
+```js
+<script src="image-magician.js"><script>
+<script>
+    const magician = new imageMagician()
+
+    //use ES6
+    magician.toBase64Url({
+        cover: baseImageUrl
+    }).then( data  => {
+        console.log('image data:',data)
+    }).catch( error => {
+        console.error('toBase64Url error', err);
+    })
+
+    //use ES7
+    (async ()=>{
+        const data = await magician.toBase64Url({
+            cover: baseImageUrl
+        })
+        console.log('image data:',data)
+    })
+</script>
+```
+
+## Development
 ```
 git clone https://github.com/lijinke666/image-magician.git
+npm install | yarn
+npm start
 ```
-```js
-<script src="./src/image-magician.js"><script>
-```
-
 
 ## Api
 ```js
-<script src="./src/image-magician.js"></script>
-<script>
-    const baseImageUrl = './images/demo.jpg'
-    const watermark = './images/watermark.png'
-
-    const $ = (seletor) => document.querySelector(seletor)
-
-
-    const _img = new imageMagician()
-
-    $('.base-img').src = baseImageUrl
-
-    
     /**
      * 图片 转base64
      * @param {Object} options 
@@ -38,12 +47,6 @@ git clone https://github.com/lijinke666/image-magician.git
     
     _img.toBase64Url({
         cover: baseImageUrl
-    }).then((url) => {
-        _img.createImageNode(url).then((data) => {
-            $('.base64Url-content').appendChild(data)
-        })
-    }).catch((err) => {
-        console.error('toBase64Url error', err);
     })
 
     /**
@@ -55,14 +58,6 @@ git clone https://github.com/lijinke666/image-magician.git
 
     _img.getPrimaryColor({
         cover: watermark
-    }).then((primaryColor) => {
-        $('.primaryColor').style.border = `1px solid ${primaryColor}`
-        $('.primaryColor-content').innerHTML = `
-            <p><img src='${watermark}'></p>
-            <strong>${primaryColor}</strong>
-        `
-    }).catch((err) => {
-        console.error('getPrimaryColor error', err);
     })
 
     /**
@@ -75,10 +70,6 @@ git clone https://github.com/lijinke666/image-magician.git
     _img.compressImage({
         cover: baseImageUrl,
         quality: 0.12,
-    }).then((imageNode) => {
-        $('.compress-content').appendChild(imageNode)
-    }).catch((err) => {
-        console.error('compressImage error', err);
     })
 
     /**
@@ -93,10 +84,6 @@ git clone https://github.com/lijinke666/image-magician.git
         cover: baseImageUrl,
         scale: 1.0,
         coordinate: [[200, 200], [300, 300]],             //裁剪坐标 [x1,y1], [x2,y2]
-    }).then((imageNode) => {
-        $('.clipImage-content').appendChild(imageNode)
-    }).catch((err) => {
-        console.error('clipImage error', err);
     })
 
     /**
@@ -107,12 +94,7 @@ git clone https://github.com/lijinke666/image-magician.git
     _img.rotateImage({
         cover:baseImageUrl,
         rotate:20,
-    }).then((imageNode)=>{
-        $('.rotateImage-content').appendChild(imageNode)
-    }).catch((err)=>{
-        console.error('rotateImage error',err);
     })
-    
 
     /**
      * 添加水印 (文本水印 | 图片水印)
@@ -134,10 +116,6 @@ git clone https://github.com/lijinke666/image-magician.git
         height: 60,
         opacity: 0.8,
         coordinate: [330, 300],
-    }).then((imageNode) => {
-        $('.addWaterMark-img-content').appendChild(imageNode)
-    }).catch((err) => {
-        console.error('add image WaterMark error', err);
     })
 
     /**
@@ -152,17 +130,13 @@ git clone https://github.com/lijinke666/image-magician.git
         fontSize: 20,
         fontColor: "#396",
         coordinate: [10, 20]
-    }).then((imageNode) => {
-        $('.addWaterMark-text-content').appendChild(imageNode)
-    }).catch((err) => {
-        console.error('add text WaterMark error', err);
     })
 
     /**
      * 添加图片滤镜
      * @param {Object} options
-     * @param {String | Object} cover 图片地址 或节点
-     * @param {String} mode  滤镜模式
+     * @param {String | Object} options.cover 图片地址 或节点
+     * @param {String} options.mode  滤镜模式
      * {可选如下}
      * vintage          //复古
      * blackWhite       //黑白
@@ -174,63 +148,10 @@ git clone https://github.com/lijinke666/image-magician.git
     _img.addImageFilter({
         cover: baseImageUrl,
         mode: "vintage"
-    }).then((imageNode) => {
-        $('.vintage-content').appendChild(imageNode)
-    }).catch((err) => {
-        console.error('add image filter error', err);
     })
 
-    //添加图片滤镜  (黑白)
-    _img.addImageFilter({
-        cover: baseImageUrl,
-        mode: "blackWhite"
-    }).then((imageNode) => {
-        $('.blackWhite-content').appendChild(imageNode)
-    }).catch((err) => {
-        console.error('add image filter error', err);
-    })
-
-    //添加图片滤镜  (浮雕)
-    _img.addImageFilter({
-        cover: baseImageUrl,
-        mode: "relief"
-    }).then((imageNode) => {
-        $('.relief-content').appendChild(imageNode)
-    }).catch((err) => {
-        console.error('add image filter error', err);
-    })
-
-    //添加图片滤镜  (反色)
-    _img.addImageFilter({
-        cover: baseImageUrl,
-        mode: "invert"
-    }).then((imageNode) => {
-        $('.invert-content').appendChild(imageNode)
-    }).catch((err) => {
-        console.error('add image filter error', err);
-    })
-
-    //添加图片滤镜  (镜像)
-    _img.addImageFilter({
-        cover: baseImageUrl,
-        mode: "mirror"
-    }).then((imageNode) => {
-        $('.mirror-content').appendChild(imageNode)
-    }).catch((err) => {
-        console.error('add image filter error', err);
-    })
-
-    //添加图片滤镜  (模糊)
-    _img.addImageFilter({
-        cover: baseImageUrl,
-        mode: "blur"
-    }).then((imageNode) => {
-        $('.blur-content').appendChild(imageNode)
-    }).catch((err) => {
-        console.error('add image filter error', err);
-    })
 </script>
 
 ```
-
-### 正在完善中...
+## License
+[MIT](https://github.com/image-magician/dawdler/blob/master/LICENCE)

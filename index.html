@@ -90,14 +90,14 @@
             <h3 class="title">浮雕滤镜:addImageFilter()</h3>
             <p class="demo-content relief-content"></p>
         </div>
-        <div class="demo-section addImageFilter">
+        <!-- <div class="demo-section addImageFilter">
             <h3 class="title">反色滤镜:addImageFilter()</h3>
             <p class="demo-content invert-content"></p>
         </div>
         <div class="demo-section addImageFilter">
             <h3 class="title">镜像滤镜:addImageFilter()</h3>
             <p class="demo-content mirror-content"></p>
-        </div>
+        </div> -->
         <div class="demo-section addImageFilter">
             <h3 class="title">模糊滤镜:addImageFilter()</h3>
             <p class="demo-content blur-content"></p>
@@ -106,8 +106,8 @@
 </body>
 <script src="./src/image-magician.js"></script>
 <script>
-    const baseImageUrl = './images/demo.jpg'
-    const watermark = './images/watermark.png'
+    const baseImageUrl = './assets/demo.jpg'
+    const watermark = './assets/watermark.png'
 
     const $ = (seletor) => document.querySelector(seletor)
     const _img = new imageMagician()
@@ -207,25 +207,25 @@
         console.error('add image filter error', err);
     })
 
-    //添加图片滤镜  (反色)
-    _img.addImageFilter({
-        cover: baseImageUrl,
-        mode: "invert"
-    }).then((imageNode) => {
-        $('.invert-content').appendChild(imageNode)
-    }).catch((err) => {
-        console.error('add image filter error', err);
-    })
+    // //添加图片滤镜  (反色)
+    // _img.addImageFilter({
+    //     cover: baseImageUrl,
+    //     mode: "invert"
+    // }).then((imageNode) => {
+    //     $('.invert-content').appendChild(imageNode)
+    // }).catch((err) => {
+    //     console.error('add image filter error', err);
+    // })
 
-    //添加图片滤镜  (镜像)
-    _img.addImageFilter({
-        cover: baseImageUrl,
-        mode: "mirror"
-    }).then((imageNode) => {
-        $('.mirror-content').appendChild(imageNode)
-    }).catch((err) => {
-        console.error('add image filter error', err);
-    })
+    // //添加图片滤镜  (镜像)
+    // _img.addImageFilter({
+    //     cover: baseImageUrl,
+    //     mode: "mirror"
+    // }).then((imageNode) => {
+    //     $('.mirror-content').appendChild(imageNode)
+    // }).catch((err) => {
+    //     console.error('add image filter error', err);
+    // })
 
     //添加图片滤镜  (模糊)
     _img.addImageFilter({
