@@ -140,9 +140,7 @@ npm start
      * {可选如下}
      * vintage          //复古
      * blackWhite       //黑白
-     * invert           //反色
      * relief           //浮雕
-     * mirror           //镜像
      * blur             //模糊
      */
     _img.addImageFilter({
