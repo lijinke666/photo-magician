@@ -6,7 +6,7 @@
 
 ## Usage
 ```js
-<script src="image-magician.js"><script>
+<script src="./src/image-magician.js"><script>
 <script>
     const magician = new imageMagician()
 
