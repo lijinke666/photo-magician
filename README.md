@@ -26,7 +26,7 @@
             cover: baseImageUrl
         })
         console.log('image data:',data)
-    })
+    })()
 </script>
 ```
 
