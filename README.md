@@ -8,6 +8,7 @@
 ```js
 <script src="./src/image-magician.js"><script>
 <script>
+    const baseImageUrl = "YOUR_IMG_URL"
     const magician = new imageMagician()
 
     //use ES6
@@ -148,7 +149,6 @@ npm start
         mode: "vintage"
     })
 
-</script>
 
 ```
 ## License
