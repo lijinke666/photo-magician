@@ -6,7 +6,7 @@
 
 ## Usage
 ```js
-<script src="./src/image-magician.js"><script>
+<script src="./src/imageMagician.js"><script>
 <script>
     const baseImageUrl = "YOUR_IMG_URL"
     const magician = new imageMagician()
@@ -46,7 +46,7 @@ npm start
      * @return 图片base64 data
      */
     
-    _img.toBase64Url({
+    magician.toBase64Url({
         cover: baseImageUrl
     })
 
@@ -57,7 +57,7 @@ npm start
      * @return primaryColor 
      */
 
-    _img.getPrimaryColor({
+    magician.getPrimaryColor({
         cover: watermark
     })
 
@@ -68,7 +68,7 @@ npm start
      * @param {Number}  quality 压缩比例  非必选 (0-1) 默认 '0.92'
      * @return 图片base64 data (jpg格式)
      */
-    _img.compressImage({
+    magician.compressImage({
         cover: baseImageUrl,
         quality: 0.12,
     })
@@ -81,7 +81,7 @@ npm start
     * @param {Array} coordinate 裁剪坐标  必选  [[x1,y1],[x2,y2]]
     * @return 裁剪后的图片节点
     */
-    _img.clipImage({
+    magician.clipImage({
         cover: baseImageUrl,
         scale: 1.0,
         coordinate: [[200, 200], [300, 300]],             //裁剪坐标 [x1,y1], [x2,y2]
@@ -92,7 +92,7 @@ npm start
      * @param {String | Object} cover 图片地址或节点
      * @param {Number} rotate 旋转比例 (0 -360 ) °
      */
-    _img.rotateImage({
+    magician.rotateImage({
         cover:baseImageUrl,
         rotate:20,
     })
@@ -109,7 +109,7 @@ npm start
      * @param {Number} width 图片水印长度 (图片水印时有效) 非必选 默认 '50'
      * @param {NUmber} height 图片水印高度 (图片水印时有效) 非必选 默认 '50'
      */
-    _img.addWaterMark({
+    magician.addWaterMark({
         cover: baseImageUrl,
         mode: "image",
         waterMark: watermark,
@@ -123,7 +123,7 @@ npm start
      * 添加文字水印 
      * @param 同上
      */
-    _img.addWaterMark({
+    magician.addWaterMark({
         cover: baseImageUrl,
         mode: "text",
         waterMark: "image-magician.js",
@@ -144,7 +144,7 @@ npm start
      * relief           //浮雕
      * blur             //模糊
      */
-    _img.addImageFilter({
+    magician.addImageFilter({
         cover: baseImageUrl,
         mode: "vintage"
     })

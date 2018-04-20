@@ -10,8 +10,8 @@
   "bugs": {
     "url": "https://github.com/lijinke666/image-magician/issues"
   },
-  "main": "index.js",
-  "author": "jinke.li",
+  "main": "lib/index.js",
+  "author": "Jinke.Li <1359518268@qq.com>",
   "license": "MIT",
   "keywords": [
     "photo",
@@ -26,12 +26,13 @@
     "compress"
   ],
   "scripts": {
-    "start":"http-server",
+    "start": "http-server",
     "clean": "rimraf lib",
-    "minify":"uglifyjs lib/image-magician.js -o lib/image-magician.min.js  --compress --mangle",
-    "build:node": "babel src -d lib && npm run minify",
-    "build":"npm run clean && npm run build:node",
-    "test":"mocha -t 20000 --require intelli-espower-loader ./__tests__",
+    "minify": "uglifyjs lib/imageMagician.js -o lib/imageMagician.min.js  --compress --mangle",
+    "build:node": "babel src -d lib",
+    "build:browser": "browserify src/imageMagician.js -o lib/imageMagician.browser.js -t [ babelify --presets [ \"babel-preset-env\" ] ]",
+    "build": "npm run clean && npm run build:node && npm run build:browser",
+    "test": "mocha -t 20000 --require intelli-espower-loader ./__tests__",
     "pub": "npm run clean && npm run build",
     "update": "yarn upgrade",
     "prepublish": "npm run pub"
@@ -50,11 +51,14 @@
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "6.x",
     "babel-preset-stage-1": "^6.24.1",
     "babel-runtime": "^6.23.0",
+    "babelify": "^8.0.0",
+    "browserify": "^16.2.0",
     "rimraf": "^2.6.1"
   }
 }

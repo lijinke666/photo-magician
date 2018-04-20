@@ -104,22 +104,22 @@
         </div>
     </div>
 </body>
-<script src="./src/image-magician.js"></script>
+<script src="./src/imageMagician.js"></script>
 <script>
     const baseImageUrl = './assets/demo.jpg'
     const watermark = './assets/watermark.png'
 
     const $ = (seletor) => document.querySelector(seletor)
-    const _img = new imageMagician()
+    const magician = new imageMagician()
 
     $('.base-img').src = baseImageUrl
 
 
     // 图片转base64
-    _img.toBase64Url({
+    magician.toBase64Url({
         cover: baseImageUrl
     }).then((url) => {
-        _img.createImageNode(url).then((data) => {
+        magician.createImageNode(url).then((data) => {
             $('.base64Url-content').appendChild(data)
         })
     }).catch((err) => {
@@ -127,7 +127,7 @@
     })
 
     //压缩图片
-    _img.compressImage({
+    magician.compressImage({
         cover: baseImageUrl,
         quality: 0.12,
     }).then((imageNode) => {
@@ -137,7 +137,7 @@
     })
 
     //裁剪图片
-    _img.clipImage({
+    magician.clipImage({
         cover: baseImageUrl,
         scale: 1.0,
         coordinate: [[200, 200], [300, 300]],             //裁剪坐标 [x1,y1], [x2,y2]
@@ -148,7 +148,7 @@
     })
 
     //添加水印 (图片)
-    _img.addWaterMark({
+    magician.addWaterMark({
         cover: baseImageUrl,
         mode: "image",
         waterMark: watermark,
@@ -163,7 +163,7 @@
     })
 
     //添加水印 (文字)
-    _img.addWaterMark({
+    magician.addWaterMark({
         cover: baseImageUrl,
         mode: "text",
         waterMark: "image-magician.js",
@@ -178,7 +178,7 @@
     })
 
     //添加图片滤镜  (复古)
-    _img.addImageFilter({
+    magician.addImageFilter({
         cover: baseImageUrl,
         mode: "vintage"
     }).then((imageNode) => {
@@ -188,7 +188,7 @@
     })
 
     //添加图片滤镜  (黑白)
-    _img.addImageFilter({
+    magician.addImageFilter({
         cover: baseImageUrl,
         mode: "blackWhite"
     }).then((imageNode) => {
@@ -198,7 +198,7 @@
     })
 
     //添加图片滤镜  (浮雕)
-    _img.addImageFilter({
+    magician.addImageFilter({
         cover: baseImageUrl,
         mode: "relief"
     }).then((imageNode) => {
@@ -208,7 +208,7 @@
     })
 
     // //添加图片滤镜  (反色)
-    // _img.addImageFilter({
+    // magician.addImageFilter({
     //     cover: baseImageUrl,
     //     mode: "invert"
     // }).then((imageNode) => {
@@ -218,7 +218,7 @@
     // })
 
     // //添加图片滤镜  (镜像)
-    // _img.addImageFilter({
+    // magician.addImageFilter({
     //     cover: baseImageUrl,
     //     mode: "mirror"
     // }).then((imageNode) => {
@@ -228,7 +228,7 @@
     // })
 
     //添加图片滤镜  (模糊)
-    _img.addImageFilter({
+    magician.addImageFilter({
         cover: baseImageUrl,
         mode: "blur"
     }).then((imageNode) => {

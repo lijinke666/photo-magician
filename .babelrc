@@ -1,17 +1,20 @@
 {
-    "presets": [
-        "es2015"
-    ],
-    "plugins": [
-        "transform-es2015-modules-commonjs",
-        "transform-async-to-generator",    
-        "transform-decorators-legacy",     
-        "transform-object-rest-spread",   
-        "transform-class-properties",     
-        ["transform-runtime", {
-          "helpers": false,
-          "polyfill": true,
-          "regenerator": true
-        }]
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions", "android >= 4.4"]
+        },
+        "loose": true,
+        "useBuiltIns": true
+      }
     ]
+  ],
+  "plugins": [
+    "transform-es2015-modules-commonjs",
+    "transform-decorators-legacy",
+    "transform-object-rest-spread",
+    "transform-class-properties"
+  ]
 }
