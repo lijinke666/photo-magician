@@ -66,7 +66,7 @@ const PACKAGE_NAME = "imageMagician";
       this.canvas.height = height;
     }
     checkCoverType(cover) {
-      if (!Object.is(typeof (cover), "string"))
+      if (!Object.is(typeof cover, "string"))
         throw new Error('cover can not be empty and it must be "string"');
     }
     /**
