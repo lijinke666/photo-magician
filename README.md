@@ -6,7 +6,7 @@
 
 ## Usage
 ```js
-<script src="./src/imageMagician.js"><script>
+<script src="./src/index.js"><script>
 <script>
     const baseImageUrl = "YOUR_IMG_URL"
     const magician = new imageMagician()

@@ -4,9 +4,9 @@
  * @github https://www.github.com/lijinke666/
  * 图片滤镜算法代码 参考网上代码
  */
-const VERSION = "0.4.0";
+/* global define*/
 const PACKAGE_NAME = "imageMagician";
-((name, definition) => {
+(function(name, definition) {
   const hasDefine = typeof define === "function";
   const hasExports = typeof module !== "undefined" && module.exports;
   if (hasDefine) {
@@ -17,7 +17,7 @@ const PACKAGE_NAME = "imageMagician";
   } else {
     this[name] = definition();
   }
-})(PACKAGE_NAME, () => {
+})(PACKAGE_NAME, function() {
   class ImageMagician {
     constructor() {
       this.colors = {};
@@ -66,8 +66,8 @@ const PACKAGE_NAME = "imageMagician";
       this.canvas.height = height;
     }
     checkCoverType(cover) {
-      if (!Object.is(typeof cover, "string"))
-        throw new Error('cover it must be "string"');
+      if (!Object.is(typeof (cover), "string"))
+        throw new Error('cover can not be empty and it must be "string"');
     }
     /**
      * 添加水印
@@ -220,8 +220,12 @@ const PACKAGE_NAME = "imageMagician";
         this.canvas.height
       ); //像素信息
 
-      let { width, height, data } = imageData;
+      let { data } = imageData;
       const canvasArea = this.canvas.width * this.canvas.height;
+      const tempData = this.copyImageData(imageData);
+      let sumred = 0.0,
+        sumgreen = 0.0,
+        sumblue = 0.0;
 
       switch (filterType) {
         //复古 (灰白)
@@ -272,25 +276,15 @@ const PACKAGE_NAME = "imageMagician";
           break;
         //浮雕
         case this.imageFilterConfig["relief"]:
-          const copyImageData = this.copyImageData(imageData);
-          for (let x = 1; x < copyImageData.width - 1; x++) {
-            for (let y = 1; y < copyImageData.height - 1; y++) {
-              let idx = (x + y * copyImageData.width) * 4,
-                bidx = (x - 1 + y * copyImageData.width) * 4,
-                aidx = (x + 1 + y * copyImageData.width) * 4;
+          for (let x = 1; x < tempData.width - 1; x++) {
+            for (let y = 1; y < tempData.height - 1; y++) {
+              let idx = (x + y * tempData.width) * 4,
+                bidx = (x - 1 + y * tempData.width) * 4,
+                aidx = (x + 1 + y * tempData.width) * 4;
 
-              let nr =
-                copyImageData.data[aidx + 0] -
-                copyImageData.data[bidx + 0] +
-                128;
-              let ng =
-                copyImageData.data[aidx + 1] -
-                copyImageData.data[bidx + 1] +
-                128;
-              let nb =
-                copyImageData.data[aidx + 2] -
-                copyImageData.data[bidx + 2] +
-                128;
+              let nr = tempData.data[aidx + 0] - tempData.data[bidx + 0] + 128;
+              let ng = tempData.data[aidx + 1] - tempData.data[bidx + 1] + 128;
+              let nb = tempData.data[aidx + 2] - tempData.data[bidx + 2] + 128;
 
               nr = nr < 0 ? 0 : nr > 255 ? 255 : nr;
               ng = ng < 0 ? 0 : ng > 255 ? 255 : ng;
@@ -305,11 +299,10 @@ const PACKAGE_NAME = "imageMagician";
           break;
         //镜像
         case this.imageFilterConfig["mirror"]:
-          const copyData = this.copyImageData(imageData);
-          for (let x = 0; x < copyData.width; x++) {
-            for (let y = 0; y < copyData.height; y++) {
-              let idx = (x + y * copyData.width) * 4;
-              let midx = (copyData.width - 1 - x + y * copyData.width) * 4;
+          for (let x = 0; x < tempData.width; x++) {
+            for (let y = 0; y < tempData.height; y++) {
+              let idx = (x + y * tempData.width) * 4;
+              let midx = (tempData.width - 1 - x + y * tempData.width) * 4;
 
               data[midx + 0] = data[idx + 0];
               data[midx + 1] = data[idx + 1];
@@ -319,10 +312,6 @@ const PACKAGE_NAME = "imageMagician";
           }
           break;
         case this.imageFilterConfig["blur"]:
-          const tempData = this.copyImageData(imageData);
-          let sumred = 0.0,
-            sumgreen = 0.0,
-            sumblue = 0.0;
           for (let x = 0; x < tempData.width; x++) {
             for (let y = 0; y < tempData.height; y++) {
               // Index of the pixel in the array

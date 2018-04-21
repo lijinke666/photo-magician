@@ -28,19 +28,30 @@
   "scripts": {
     "start": "http-server",
     "clean": "rimraf lib",
-    "minify": "uglifyjs lib/imageMagician.js -o lib/imageMagician.min.js  --compress --mangle",
+    "minify": "uglifyjs lib/index.js -o lib/index.min.js  --compress --mangle",
     "build:node": "babel src -d lib",
-    "build:browser": "browserify src/imageMagician.js -o lib/imageMagician.browser.js -t [ babelify --presets [ \"babel-preset-env\" ] ]",
+    "build:browser": "browserify src/index.js -o lib/index.browser.js -t [ babelify --presets [ \"babel-preset-env\" ] ]",
     "build": "npm run clean && npm run build:node && npm run build:browser",
-    "test": "mocha -t 20000 --require intelli-espower-loader ./__tests__",
+    "test": "jest __tests__/index.test",
     "pub": "npm run clean && npm run build",
-    "update": "yarn upgrade",
+    "precommit": "lint-staged",
+    "lint": "prettier --write \"src/**/*.js\" && eslint_d --fix src",
+    "upgrade": "yarn upgrade",
     "prepublish": "npm run pub"
+  },
+  "pre-commit": "lint",
+  "lint-staged": {
+    "src/**/*.js": [
+      "prettier --write",
+      "eslint_d --fix",
+      "git add"
+    ]
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "babel-core": "6.x",
-    "babel-jest": "^19.0.0",
+    "babel-eslint": "^8.2.3",
+    "babel-jest": "^22.4.3",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dynamic-import-node": "^1.0.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
@@ -59,6 +70,40 @@
     "babel-runtime": "^6.23.0",
     "babelify": "^8.0.0",
     "browserify": "^16.2.0",
+    "eslint": "^4.19.1",
+    "eslint-plugin-babel": "^5.0.0",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint_d": "^5.3.0",
+    "jest": "^22.4.3",
+    "jsdom": "^11.8.0",
+    "lint-staged": "^7.0.4",
+    "power-assert": "^1.5.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.12.1",
     "rimraf": "^2.6.1"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json"
+    ],
+    "transformIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      ".",
+      "src",
+      "src/shared"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/__tests__/setup.js",
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "testEnvironment": "jsdom"
   }
 }
