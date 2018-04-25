@@ -33,7 +33,7 @@ npm install photo-magician --save
 > ES6
 
 ```js
-import photoMagician from "photoMagician";
+import photoMagician from "photo-magician";
 const magician = new photoMagician();
 
 magician.toBase64Url({ cover: "YOUR_IMG_URL" });
@@ -42,7 +42,7 @@ magician.toBase64Url({ cover: "YOUR_IMG_URL" });
 > No ES6
 
 ```js
-const photoMagician = require("photoMagician");
+const photoMagician = require("photo-magician");
 const magician = new photoMagician();
 
 magician.toBase64Url({ cover: "YOUR_IMG_URL" });
