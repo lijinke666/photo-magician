@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>image-magician examples</title>
+    <title>imageMagician examples</title>
     <style>
         h1.title {
             margin-bottom: 30px;
@@ -14,7 +14,8 @@
             font-weight: 500;
             border-bottom: 1px solid
         }
-        .flex{
+
+        .flex {
             display: flex;
             justify-content: center;
             align-content: center;
@@ -50,45 +51,51 @@
 </head>
 
 <body>
-    <h1 class="title">image-magician.js | 图片常用的处理函数库</h1>
+    <h1 class="title">imageMagician | Provide some common image process apis with canvas 【
+        <a href="https://github.com/lijinke666/image-magician/blob/master/index.html"
+            target="_blank">Source Code</a>】</h1>
     <div class="flex">
         <div class="demo-section base">
-            <h3 class="title">初始图片</h3>
+            <h3 class="title">Base Image</h3>
             <p class="demo-content base-content">
                 <img src="" alt="" class="base-img">
             </p>
         </div>
         <div class="demo-section compress">
-            <h3 class="title">压缩:compressImage()</h3>
+            <h3 class="title">compressImage()</h3>
             <p class="demo-content compress-content"></p>
         </div>
         <div class="demo-section base64Url">
-            <h3 class="title">base64:toBase64Url()</h3>
+            <h3 class="title">toBase64Url()</h3>
             <p class="demo-content base64Url-content"></p>
         </div>
         <div class="demo-section clipImage">
-            <h3 class="title">裁剪:clipImage()</h3>
+            <h3 class="title">clipImage()</h3>
             <p class="demo-content clipImage-content"></p>
         </div>
         <div class="demo-section addWaterMark">
-            <h3 class="title">图片水印:addWaterMark()</h3>
+            <h3 class="title">addWaterMark({mode: "image"})</h3>
             <p class="demo-content addWaterMark-img-content"></p>
         </div>
         <div class="demo-section addWaterMark">
-            <h3 class="title">文字水印:addWaterMark()</h3>
+            <h3 class="title">addWaterMark({mode: "text"})</h3>
             <p class="demo-content addWaterMark-text-content"></p>
         </div>
         <div class="demo-section addImageFilter">
-            <h3 class="title">复古滤镜:addImageFilter()</h3>
+            <h3 class="title">addImageFilter({mode: "vintage"})</h3>
             <p class="demo-content vintage-content"></p>
         </div>
         <div class="demo-section addImageFilter">
-            <h3 class="title">黑白滤镜:addImageFilter()</h3>
+            <h3 class="title">addImageFilter({mode: "blackWhite"})</h3>
             <p class="demo-content blackWhite-content"></p>
         </div>
         <div class="demo-section addImageFilter">
-            <h3 class="title">浮雕滤镜:addImageFilter()</h3>
+            <h3 class="title">addImageFilter({mode:"relief"})</h3>
             <p class="demo-content relief-content"></p>
+        </div>
+        <div class="demo-section addImageFilter">
+            <h3 class="title">addImageFilter({mode:"blur"})</h3>
+            <p class="demo-content blur-content"></p>
         </div>
         <!-- <div class="demo-section addImageFilter">
             <h3 class="title">反色滤镜:addImageFilter()</h3>
@@ -98,18 +105,14 @@
             <h3 class="title">镜像滤镜:addImageFilter()</h3>
             <p class="demo-content mirror-content"></p>
         </div> -->
-        <div class="demo-section addImageFilter">
-            <h3 class="title">模糊滤镜:addImageFilter()</h3>
-            <p class="demo-content blur-content"></p>
-        </div>
     </div>
 </body>
-<script src="./src/imageMagician.js"></script>
+<script src="/imageMagician.min.js"></script>
 <script>
     const baseImageUrl = './assets/demo.jpg'
     const watermark = './assets/watermark.png'
 
-    const $ = (seletor) => document.querySelector(seletor)
+    const $ = (selector) => document.querySelector(selector)
     const magician = new imageMagician()
 
     $('.base-img').src = baseImageUrl

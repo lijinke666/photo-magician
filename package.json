@@ -1,7 +1,7 @@
 {
-  "name": "image-magician",
-  "version": "0.4.0",
-  "description": "Provide some common image manipulation apis",
+  "name": "imageMagician",
+  "version": "0.1.0",
+  "description": "Provide some common image process apis with canvas",
   "repository": {
     "type": "git",
     "url": "https://github.com/lijinke666/image-magician.git"
@@ -23,24 +23,35 @@
     "image-magician",
     "magician",
     "clip",
-    "compress"
+    "compress",
+    "image-process"
   ],
   "scripts": {
     "start": "http-server",
-    "clean": "rimraf lib",
-    "minify": "uglifyjs lib/imageMagician.js -o lib/imageMagician.min.js  --compress --mangle",
+    "clear": "rimraf lib && rimraf imageMagician.js && rimraf imageMagician.min.js",
+    "minify": "uglifyjs imageMagician.js -o lib/imageMagician.min.js  --compress --mangle --comments /Copyright/",
     "build:node": "babel src -d lib",
-    "build:browser": "browserify src/imageMagician.js -o lib/imageMagician.browser.js -t [ babelify --presets [ \"babel-preset-env\" ] ]",
-    "build": "npm run clean && npm run build:node && npm run build:browser",
-    "test": "mocha -t 20000 --require intelli-espower-loader ./__tests__",
-    "pub": "npm run clean && npm run build",
-    "update": "yarn upgrade",
-    "prepublish": "npm run pub"
+    "build:browser": "babel-node buildBrowser",
+    "build": "yarn clear && yarn build:node && yarn build:browser",
+    "test": "jest",
+    "precommit": "lint-staged",
+    "lint": "prettier --write \"src/**/*.js\" && eslint_d --fix src",
+    "upgrade": "yarn upgrade",
+    "prepare": "npm run build"
+  },
+  "pre-commit": "lint",
+  "lint-staged": {
+    "src/**/*.js": [
+      "prettier --write",
+      "eslint_d --fix",
+      "git add"
+    ]
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "babel-core": "6.x",
-    "babel-jest": "^19.0.0",
+    "babel-eslint": "^8.2.3",
+    "babel-jest": "^22.4.3",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dynamic-import-node": "^1.0.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
@@ -53,12 +64,45 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2015-rollup": "^3.0.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "6.x",
     "babel-preset-stage-1": "^6.24.1",
     "babel-runtime": "^6.23.0",
     "babelify": "^8.0.0",
     "browserify": "^16.2.0",
-    "rimraf": "^2.6.1"
+    "eslint": "^4.19.1",
+    "eslint-plugin-babel": "^5.0.0",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint_d": "^5.3.0",
+    "jest": "^22.4.3",
+    "jsdom": "^11.8.0",
+    "lint-staged": "^7.0.4",
+    "power-assert": "^1.5.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.12.1",
+    "rimraf": "^2.6.1",
+    "rollup": "0.43.0",
+    "rollup-plugin-babel": "2.7.1",
+    "rollup-plugin-uglify": "^3.0.0",
+    "uglifyjs": "^2.4.11"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json"
+    ],
+    "transformIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/testSetup.js",
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "testEnvironment": "jsdom"
   }
 }
