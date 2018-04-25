@@ -1,5 +1,5 @@
 {
-  "name": "imageMagician",
+  "name": "image-magician",
   "version": "0.1.0",
   "description": "Provide some common image process apis with canvas",
   "repository": {
