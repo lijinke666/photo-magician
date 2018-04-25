@@ -19,7 +19,7 @@ rollup({
     bundle.write({
       dest: `photoMagician.min.js`,
       format: "umd",       //CMD  nodejs  AMD 异步模块规范  UMD 通用模块规范
-      moduleName: pkgName
+      moduleName: 'photoMagician'
     })
   ))
   .catch(e => {
