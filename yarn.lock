@@ -5644,6 +5644,10 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
+validator@^9.4.1:
+  version "9.4.1"
+  resolved "http://registry.npm.taobao.org/validator/download/validator-9.4.1.tgz#abf466d398b561cd243050112c6ff1de6cc12663"
+
 verror@1.10.0:
   version "1.10.0"
   resolved "http://registry.npm.taobao.org/verror/download/verror-1.10.0.tgz#3a105ca17053af55d6e270c1f8288682e18da400"

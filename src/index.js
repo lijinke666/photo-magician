@@ -30,6 +30,7 @@ export default class imageMagician {
       } else if (Object.is(coverType, "string")) {
         const img = new Image();
         img.src = cover;
+        img.crossOrigin = "Anonymous";        //支持图片跨域
         img.onload = () => {
           this.setCanvasWidth(
             canvasWidth || img.width,

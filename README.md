@@ -1,10 +1,10 @@
 # image-magician
 
-:art: Provide some common image process apis with canvas
-
 [![npm](https://img.shields.io/npm/dm/image-magician.svg?style=flat-square)](https://www.npmjs.com/package/image-magician)
 [![npm version](https://img.shields.io/npm/v/image-magician.svg?style=flat-square)](https://badge.fury.io/js/image-magician)
 [![jest](https://facebook.github.io/jest/img/jest-badge.svg)](https://github.com/facebook/jest)
+
+:art: Provide some common image process apis with canvas
 
 ## Installation
 
@@ -19,6 +19,10 @@ using `npm` :
 ```
 npm install image-magician --save
 ```
+
+## Screenshots
+
+![https://github.com/lijinke666/image-magician/tree/master/assets/screenshot.png](https://github.com/lijinke666/image-magician/tree/master/assets/screenshot.png)
 
 ## Example
 

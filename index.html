@@ -52,8 +52,7 @@
 
 <body>
     <h1 class="title">imageMagician | Provide some common image process apis with canvas 【
-        <a href="https://github.com/lijinke666/image-magician/blob/master/index.html"
-            target="_blank">Source Code</a>】</h1>
+        <a href="https://github.com/lijinke666/image-magician/blob/master/index.html" target="_blank">Source Code</a>】</h1>
     <div class="flex">
         <div class="demo-section base">
             <h3 class="title">Base Image</h3>
@@ -72,6 +71,12 @@
         <div class="demo-section clipImage">
             <h3 class="title">clipImage()</h3>
             <p class="demo-content clipImage-content"></p>
+        </div>
+        <div class="demo-section primaryColor">
+            <h3 class="title">getPrimaryColor()</h3>
+            <p class="demo-content primaryColor-content">
+                <img src="./assets//watermark.png"/>
+            </p>
         </div>
         <div class="demo-section addWaterMark">
             <h3 class="title">addWaterMark({mode: "image"})</h3>
@@ -107,7 +112,7 @@
         </div> -->
     </div>
 </body>
-<script src="/imageMagician.min.js"></script>
+<script src="./imageMagician.min.js"></script>
 <script>
     const baseImageUrl = './assets/demo.jpg'
     const watermark = './assets/watermark.png'
@@ -127,6 +132,13 @@
         })
     }).catch((err) => {
         console.error('toBase64Url error', err);
+    })
+
+    magician.getPrimaryColor({ cover: watermark })
+    .then((color) => {
+        $('.primaryColor').style.border = `1px solid ${color}`
+    }).catch((err) => {
+        console.error('getPrimaryColor error', err);
     })
 
     //压缩图片

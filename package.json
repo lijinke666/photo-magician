@@ -27,17 +27,17 @@
     "image-process"
   ],
   "scripts": {
-    "start": "http-server",
+    "start": "yarn build:browser && http-server",
     "clear": "rimraf lib && rimraf imageMagician.js && rimraf imageMagician.min.js",
     "minify": "uglifyjs imageMagician.js -o lib/imageMagician.min.js  --compress --mangle --comments /Copyright/",
     "build:node": "babel src -d lib",
     "build:browser": "babel-node buildBrowser",
     "build": "yarn clear && yarn build:node && yarn build:browser",
-    "test": "jest",
+    "test": "jest __tests__/index.test.js",
     "precommit": "lint-staged",
     "lint": "prettier --write \"src/**/*.js\" && eslint_d --fix src",
     "upgrade": "yarn upgrade",
-    "prepare": "npm run build"
+    "prepare": "yarn build"
   },
   "pre-commit": "lint",
   "lint-staged": {
@@ -76,6 +76,7 @@
     "eslint-plugin-react": "^7.7.0",
     "eslint_d": "^5.3.0",
     "jest": "^22.4.3",
+    "jest-environment-jsdom": "^22.4.3",
     "jsdom": "^11.8.0",
     "lint-staged": "^7.0.4",
     "power-assert": "^1.5.0",
@@ -85,7 +86,8 @@
     "rollup": "0.43.0",
     "rollup-plugin-babel": "2.7.1",
     "rollup-plugin-uglify": "^3.0.0",
-    "uglifyjs": "^2.4.11"
+    "uglifyjs": "^2.4.11",
+    "validator": "^9.4.1"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -96,6 +98,9 @@
     "transformIgnorePatterns": [
       "/node_modules/"
     ],
+    "modulePathIgnorePatterns": [
+      "/.history/"
+    ],
     "setupTestFrameworkScriptFile": "<rootDir>/testSetup.js",
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
@@ -103,6 +108,10 @@
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     },
-    "testEnvironment": "jsdom"
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__tests__/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__tests__/__mocks__/styleMock.js"
+    },
+    "testEnvironment": "<rootDir>/__tests__/__mocks__/jsdomMock.js"
   }
 }
