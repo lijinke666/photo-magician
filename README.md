@@ -22,7 +22,7 @@ npm install photo-magician --save
 
 ## Screenshots
 
-![https://github.com/lijinke666/photo-magician/tree/master/assets/screenshot.png](https://github.com/lijinke666/photo-magician/tree/master/assets/screenshot.png)
+![https://github.com/lijinke666/photo-magician/bolb/master/assets/screenshot.png](https://github.com/lijinke666/photo-magician/blob/master/assets/screenshot.png)
 
 ## Example
 
