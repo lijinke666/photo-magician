@@ -1,14 +1,14 @@
 {
-  "name": "image-magician",
+  "name": "photo-magician",
   "version": "0.1.0",
   "description": "Provide some common image process apis with canvas",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lijinke666/image-magician.git"
+    "url": "https://github.com/lijinke666/photo-magician.git"
   },
-  "homepage": "https://lijinke666.github.io/image-magician",
+  "homepage": "https://lijinke666.github.io/photo-magician",
   "bugs": {
-    "url": "https://github.com/lijinke666/image-magician/issues"
+    "url": "https://github.com/lijinke666/photo-magician/issues"
   },
   "main": "lib/index.js",
   "author": "Jinke.Li <1359518268@qq.com>",
@@ -21,6 +21,7 @@
     "images",
     "filter",
     "image-magician",
+    "photo-magician",
     "magician",
     "clip",
     "compress",
@@ -28,8 +29,8 @@
   ],
   "scripts": {
     "start": "yarn build:browser && http-server",
-    "clear": "rimraf lib && rimraf imageMagician.js && rimraf imageMagician.min.js",
-    "minify": "uglifyjs imageMagician.js -o lib/imageMagician.min.js  --compress --mangle --comments /Copyright/",
+    "clear": "rimraf lib && rimraf photoMagician.js && rimraf photoMagician.min.js",
+    "minify": "uglifyjs imageMagician.js -o lib/photoMagician.min.js  --compress --mangle --comments /Copyright/",
     "build:node": "babel src -d lib",
     "build:browser": "babel-node buildBrowser",
     "build": "yarn clear && yarn build:node && yarn build:browser",

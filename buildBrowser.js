@@ -17,7 +17,7 @@ rollup({
 })
   .then(bundle => (
     bundle.write({
-      dest: `${pkgName}.min.js`,
+      dest: `photoMagician.min.js`,
       format: "umd",       //CMD  nodejs  AMD 异步模块规范  UMD 通用模块规范
       moduleName: pkgName
     })

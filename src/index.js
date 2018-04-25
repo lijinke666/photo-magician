@@ -1,11 +1,11 @@
 /**
- * @name imageMagician
+ * @name photoMagician
  * @author Jinke.Li
  * @github https://www.github.com/lijinke666/
  * 图片滤镜算法代码 参考网上代码
  */
 
-export default class imageMagician {
+export default class photoMagician {
   constructor() {
     this.colors = {};
     this.cover = null;

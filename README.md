@@ -1,7 +1,7 @@
-# image-magician
+# photo-magician
 
-[![npm](https://img.shields.io/npm/dm/image-magician.svg?style=flat-square)](https://www.npmjs.com/package/image-magician)
-[![npm version](https://img.shields.io/npm/v/image-magician.svg?style=flat-square)](https://badge.fury.io/js/image-magician)
+[![npm](https://img.shields.io/npm/dm/image-magician.svg?style=flat-square)](https://www.npmjs.com/package/photo-magician)
+[![npm version](https://img.shields.io/npm/v/photo-magician.svg?style=flat-square)](https://badge.fury.io/js/photo-magician)
 [![jest](https://facebook.github.io/jest/img/jest-badge.svg)](https://github.com/facebook/jest)
 
 :art: Provide some common image process apis with canvas
@@ -11,30 +11,30 @@
 using `yarn` :
 
 ```
-yarn add image-magician
+yarn add photo-magician
 ```
 
 using `npm` :
 
 ```
-npm install image-magician --save
+npm install photo-magician --save
 ```
 
 ## Screenshots
 
-![https://github.com/lijinke666/image-magician/tree/master/assets/screenshot.png](https://github.com/lijinke666/image-magician/tree/master/assets/screenshot.png)
+![https://github.com/lijinke666/photo-magician/tree/master/assets/screenshot.png](https://github.com/lijinke666/photo-magician/tree/master/assets/screenshot.png)
 
 ## Example
 
-[https://lijinke666.github.io/image-magician/](https://lijinke666.github.io/image-magician/)
+[https://lijinke666.github.io/photo-magician/](https://lijinke666.github.io/photo-magician/)
 
 ## Usage
 
 > ES6
 
 ```js
-import imageMagician from "imageMagician";
-const magician = new imageMagician();
+import photoMagician from "photoMagician";
+const magician = new photoMagician();
 
 magician.toBase64Url({ cover: "YOUR_IMG_URL" });
 ```
@@ -42,8 +42,8 @@ magician.toBase64Url({ cover: "YOUR_IMG_URL" });
 > No ES6
 
 ```js
-const imageMagician = require("imageMagician");
-const magician = new imageMagician();
+const photoMagician = require("photoMagician");
+const magician = new photoMagician();
 
 magician.toBase64Url({ cover: "YOUR_IMG_URL" });
 ```
@@ -51,7 +51,7 @@ magician.toBase64Url({ cover: "YOUR_IMG_URL" });
 > Use in the browser
 
 ```js
-<script src="imageMagician.min.js"><script>
+<script src="photoMagician.min.js"></script>
 <script>
     magician.toBase64Url({cover:"YOUR_IMG_URL"})
 </script>
@@ -83,7 +83,7 @@ magician
 ## Development
 
 ```
-git clone https://github.com/lijinke666/image-magician.git
+git clone https://github.com/lijinke666/photo-magician.git
 npm install | yarn
 npm start
 ```
@@ -185,7 +185,7 @@ magician.addWaterMark({
 magician.addWaterMark({
   cover: baseImageUrl,
   mode: "text",
-  waterMark: "image-magician.js",
+  waterMark: "photo-magician.js",
   fontBold: false,
   fontSize: 20,
   fontColor: "#396",
@@ -206,4 +206,4 @@ magician.addImageFilter({
 
 ## License
 
-[MIT](https://github.com/image-magician/dawdler/blob/master/LICENCE)
+[MIT](https://github.com/photo-magician/blob/master/LICENCE)
