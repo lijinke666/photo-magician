@@ -1,6 +1,6 @@
 # photo-magician
 
-[![npm](https://img.shields.io/npm/dm/image-magician.svg?style=flat-square)](https://www.npmjs.com/package/photo-magician)
+[![npm](https://img.shields.io/npm/dm/photo-magician.svg?style=flat-square)](https://www.npmjs.com/package/photo-magician)
 [![npm version](https://img.shields.io/npm/v/photo-magician.svg?style=flat-square)](https://badge.fury.io/js/photo-magician)
 [![jest](https://facebook.github.io/jest/img/jest-badge.svg)](https://github.com/facebook/jest)
 
