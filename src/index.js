@@ -32,16 +32,21 @@ export default class photoMagician {
         img.src = cover;
         img.crossOrigin = "Anonymous"; //支持图片跨域
         img.onload = () => {
+          const suffix = this.getCoverExt(cover);
           this.setCanvasWidth(
             canvasWidth || img.width,
             canvasHeight || img.height
           );
-          res(img);
+          res({
+            suffix,
+            img
+          });
         };
         img.onerror = e => rej(e);
       } else {
         const errText = "The cover options is not a String of Object\n";
         rej(errText);
+        throw new Error(errText);
       }
     });
   }
@@ -81,67 +86,60 @@ export default class photoMagician {
     opacity = 0.5,
     waterMark
   } = {}) {
+    if (!Array.isArray(coordinate) || coordinate.length !== 2) {
+      throw new Error("coordinate must be a array. like [x,y]");
+    }
     const isTextMode = Object.is(mode, "text");
     const isImageMode = Object.is(mode, "image");
-    if (!waterMark) throw new Error("waterMark is required");
-    if (!isTextMode && !isImageMode)
-      throw new Error('mode it must be "text" of "image" ');
-    return new Promise((res, rej) => {
-      const ext = this.getCoverExt(cover);
-      const [sx, sy] = coordinate;
-      this.createImageNode(cover)
-        .then(async img => {
-          this.waterMarkCanvas = document.createElement("canvas");
-          this.waterMarkCtx = this.waterMarkCanvas.getContext("2d");
+    if (!waterMark) throw new Error("waterMark is required.");
+    if (!isTextMode && !isImageMode) {
+      throw new Error('mode it must be "text" of "image" .');
+    }
+    const [sx, sy] = coordinate;
+    const { img, suffix } = await this.createImageNode(cover);
+    this.waterMarkCanvas = document.createElement("canvas");
+    this.waterMarkCtx = this.waterMarkCanvas.getContext("2d");
 
-          //绘制图片水印
-          if (isImageMode) {
-            const waterMarkImg = await this.createImageNode(
-              waterMark,
-              img.width,
-              img.height
-            );
-            this.waterMarkCanvas.width = width;
-            this.waterMarkCanvas.height = height;
-            this.waterMarkCtx.globalAlpha = opacity;
-            this.waterMarkCtx.drawImage(
-              waterMarkImg,
-              0,
-              0,
-              this.waterMarkCanvas.width,
-              this.waterMarkCanvas.height
-            );
-          }
+    //绘制图片水印
+    if (isImageMode) {
+      const { img: waterMarkImg } = await this.createImageNode(
+        waterMark,
+        img.width,
+        img.height
+      );
+      this.waterMarkCanvas.width = width;
+      this.waterMarkCanvas.height = height;
+      this.waterMarkCtx.globalAlpha = opacity;
+      this.waterMarkCtx.drawImage(
+        waterMarkImg,
+        0,
+        0,
+        this.waterMarkCanvas.width,
+        this.waterMarkCanvas.height
+      );
+    }
 
-          //绘制文本水印
-          if (isTextMode) {
-            this.waterMarkCtx.font = `${fontBold ? "bold" : ""} ${fontSize}${
-              /.*px$/.test(fontSize) ? "" : "px"
-            } Microsoft YaHei`;
-            this.waterMarkCtx.fillStyle = fontColor;
-            this.waterMarkCtx.textBaseline = "middle";
-            this.waterMarkCtx.fillText(waterMark, sx, sy);
-          }
+    //绘制文本水印
+    if (isTextMode) {
+      this.waterMarkCtx.font = `${fontBold ? "bold" : ""} ${fontSize}${
+        /.*px$/.test(fontSize) ? "" : "px"
+      } Microsoft YaHei`;
+      this.waterMarkCtx.fillStyle = fontColor;
+      this.waterMarkCtx.textBaseline = "middle";
+      this.waterMarkCtx.fillText(waterMark, sx, sy);
+    }
 
-          //离屏渲染
-          this.ctx.drawImage(img, 0, 0, img.width, img.height);
-          this.ctx.drawImage(
-            this.waterMarkCanvas,
-            sx,
-            sy,
-            isImageMode ? this.waterMarkCanvas.width : img.width,
-            isImageMode ? this.waterMarkCanvas.height : img.height
-          );
+    //离屏渲染
+    this.ctx.drawImage(img, 0, 0, img.width, img.height);
+    this.ctx.drawImage(
+      this.waterMarkCanvas,
+      sx,
+      sy,
+      isImageMode ? this.waterMarkCanvas.width : img.width,
+      isImageMode ? this.waterMarkCanvas.height : img.height
+    );
 
-          const waterMarkData = this.canvas.toDataURL(`image/${ext}`);
-          this.createImageNode(waterMarkData)
-            .then(waterMarkNode => {
-              res(waterMarkNode);
-            })
-            .catch(rej);
-        })
-        .catch(rej);
-    });
+    return this.canvas.toDataURL(`image/${suffix}`);
   }
   /**
    * 裁剪图片
@@ -151,37 +149,38 @@ export default class photoMagician {
    * @param {Array} coordinate 裁剪坐标  必选  [[x1,y1],[x2,y2]]
    * @return 裁剪后的图片节点
    */
-  clipImage({ cover, scale = 1.0, coordinate } = {}) {
-    return new Promise((res, rej) => {
-      const ext = this.getCoverExt(cover);
-      const [xy1, xy2] = coordinate;
-      const [x1, y1] = xy1;
-      const [x2, y2] = xy2;
+  async clipImage({ cover, scale = 1.0, coordinate = [] } = {}) {
+    if (coordinate.some(value => !Array.isArray(value) || value.length !== 2)) {
+      throw new Error("coordinate must be a array, like [[x1,y1],[x2,y2]]");
+    }
+    if (!Object.is(typeof scale, "number")) {
+      throw new Error("scale must be a number.");
+    }
+    const [xy1, xy2] = coordinate;
+    const [x1, y1] = xy1;
+    const [x2, y2] = xy2;
 
-      const clipWidth = Math.abs(x2 - x1);
-      const clipHeight = Math.abs(y2 - y1);
-      this.createImageNode(cover, clipWidth, clipHeight)
-        .then(img => {
-          this.ctx.drawImage(
-            img,
-            x1 / scale,
-            y1 / scale,
-            clipWidth / scale,
-            clipHeight / scale,
-            0,
-            0,
-            clipWidth,
-            clipHeight
-          );
-          const clipImageData = this.canvas.toDataURL(`image/${ext}`);
-          this.createImageNode(clipImageData)
-            .then(clipImageNode => {
-              res(clipImageNode);
-            })
-            .catch(rej);
-        })
-        .catch(rej);
-    });
+    const clipWidth = Math.abs(x2 - x1);
+    const clipHeight = Math.abs(y2 - y1);
+    const { img, suffix } = await this.createImageNode(
+      cover,
+      clipWidth,
+      clipHeight
+    );
+
+    this.ctx.drawImage(
+      img,
+      x1 / scale,
+      y1 / scale,
+      clipWidth / scale,
+      clipHeight / scale,
+      0,
+      0,
+      clipWidth,
+      clipHeight
+    );
+
+    return this.canvas.toDataURL(`image/${suffix}`);
   }
   //拷贝图片像素信息
   copyImageData({ width, height, data } = {}) {
@@ -359,45 +358,33 @@ export default class photoMagician {
    * @param {Object} options
    * @param {String} mode 滤镜名字 非必须 默认 复古 'vintage'
    */
-  addImageFilter({ cover, mode = this.imageFilterConfig["vintage"] } = {}) {
-    return new Promise((res, rej) => {
-      const ext = this.getCoverExt(cover);
-      this.createImageNode(cover)
-        .then(img => {
-          this.ctx.drawImage(img, 0, 0, img.width, img.height);
-          const filterData = this.transFormImageData(mode, ext);
-          this.createImageNode(filterData)
-            .then(filterImageNode => {
-              res(filterImageNode);
-            })
-            .catch(rej);
-        })
-        .catch(rej);
-    });
+  async addImageFilter({
+    cover,
+    mode = this.imageFilterConfig["vintage"]
+  } = {}) {
+    const imageFilterConfig = Object.values(this.imageFilterConfig);
+    if (!imageFilterConfig.includes(mode)) {
+      throw new Error(`mode must one of [${imageFilterConfig.join(",")}]`);
+    }
+    const { img, suffix } = await this.createImageNode(cover);
+    this.ctx.drawImage(img, 0, 0, img.width, img.height);
+    return this.transFormImageData(mode, suffix);
   }
   /**
    * 旋转图片
    * @param {String | Object} cover 图片
    * @param {Number} rotate 旋转比例 (0 -360 ) deg
    */
-  rotateImage({ cover, rotate = 0 } = {}) {
-    return new Promise((res, rej) => {
-      const ext = this.getCoverExt(cover);
-      this.createImageNode(cover)
-        .then(img => {
-          this.ctx.save();
-          this.ctx.rotate(rotate * Math.PI / 180);
-          this.ctx.drawImage(img, 0, 0, img.width, img.height);
-          this.ctx.restore();
-          const base64URL = this.canvas.toDataURL(`image/${ext}`);
-          this.createImageNode(base64URL)
-            .then(node => {
-              res(node);
-            })
-            .catch(rej);
-        })
-        .catch(rej);
-    });
+  async rotateImage({ cover, rotate = 0 } = {}) {
+    if (!Object.is(typeof rotate, "number")) {
+      throw new Error("rotate must be a number.");
+    }
+    const { img, suffix } = await this.createImageNode(cover);
+    this.ctx.save();
+    this.ctx.rotate(rotate * Math.PI / 180);
+    this.ctx.drawImage(img, 0, 0, img.width, img.height);
+    this.ctx.restore();
+    return this.canvas.toDataURL(`image/${suffix}`);
   }
   /**
    * 图片 转base64
@@ -405,17 +392,10 @@ export default class photoMagician {
    * @param {String | Object} cover 图片地址
    * @return 图片base64 data
    */
-  toBase64Url({ cover }) {
-    return new Promise((res, rej) => {
-      const ext = this.getCoverExt(cover);
-      this.createImageNode(cover)
-        .then(img => {
-          this.ctx.drawImage(img, 0, 0, img.width, img.height);
-          const base64URL = this.canvas.toDataURL(`image/${ext}`);
-          res(base64URL);
-        })
-        .catch(rej);
-    });
+  async toBase64Url({ cover }) {
+    const { img, suffix } = await this.createImageNode(cover);
+    this.ctx.drawImage(img, 0, 0, img.width, img.height);
+    return this.canvas.toDataURL(`image/${suffix}`);
   }
   /**
    * 压缩图片
@@ -424,58 +404,46 @@ export default class photoMagician {
    * @param {Number}  quality 压缩比例  非必选 默认 '0.92'
    * @return 压缩后的图片节点
    */
-  compressImage({ cover, quality = 0.92 } = {}) {
-    return new Promise((res, rej) => {
-      this.createImageNode(cover)
-        .then(img => {
-          this.ctx.drawImage(img, 0, 0, img.width, img.height);
-          const compressImage = this.canvas.toDataURL(
-            "image/jpeg",
-            Number(quality)
-          );
-          this.createImageNode(compressImage)
-            .then(compressImageNode => {
-              res(compressImageNode);
-            })
-            .catch(rej);
-        })
-        .catch(rej);
-    });
+  async compressImage({ cover, quality = 0.92 } = {}) {
+    if (!Object.is(typeof quality, "number")) {
+      throw new Error("quality must be a number.");
+    }
+    const { img } = await this.createImageNode(cover);
+    this.ctx.drawImage(img, 0, 0, img.width, img.height);
+    return this.canvas.toDataURL(
+      quality === 0.92 ? "image/png" : "image/jpeg",
+      Number(quality)
+    );
   }
-  getPrimaryColor({ cover } = {}) {
-    return new Promise((res, rej) => {
-      this.createImageNode(cover)
-        .then(img => {
-          this.ctx.drawImage(img, 0, 0, img.width, img.height);
-          const {
-            data,
-            width: imgDataWidth,
-            height: imgdataHeight
-          } = this.ctx.getImageData(0, 0, img.width, img.height);
-          for (let i = 0, len = imgDataWidth * imgdataHeight; i < len; i++) {
-            const [r, g, b, a] = [
-              data[i * 4],
-              data[i * 4 + 1],
-              data[i * 4 + 2],
-              data[i * 4 + 3]
-            ];
+  async getPrimaryColor({ cover } = {}) {
+    const { img } = await this.createImageNode(cover);
+    this.ctx.drawImage(img, 0, 0, img.width, img.height);
+    const {
+      data,
+      width: imgDataWidth,
+      height: imgDataHeight
+    } = this.ctx.getImageData(0, 0, img.width, img.height);
+    const section = imgDataWidth * imgDataHeight;
+    for (let i = 0, len = section; i < len; i++) {
+      const [r, g, b, a] = [
+        data[i * 4],
+        data[i * 4 + 1],
+        data[i * 4 + 2],
+        data[i * 4 + 3]
+      ];
 
-            const rgba = `rgba(${r},${g},${b},${a})`;
+      const rgba = `rgba(${r},${g},${b},${a})`;
 
-            if (this.colors[rgba]) {
-              this.colors[rgba].num++;
-            } else {
-              this.colors[rgba] = {
-                color: rgba,
-                num: 1
-              };
-            }
-          }
-          const primaryColor = this.getMax(this.colors);
-          res(primaryColor);
-        })
-        .catch(rej);
-    });
+      if (this.colors[rgba]) {
+        this.colors[rgba].num++;
+      } else {
+        this.colors[rgba] = {
+          color: rgba,
+          num: 1
+        };
+      }
+    }
+    return this.getMax(this.colors);
   }
   getMax(data) {
     const sort = Object.values(data).sort((a, b) => a.num - b.num);

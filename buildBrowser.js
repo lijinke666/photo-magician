@@ -1,8 +1,6 @@
-import { name as pkgName } from "./package.json";
-import fs from "fs";
+/*global process */
 import { rollup } from "rollup";
 import babel from "rollup-plugin-babel";
-import { resolve } from "path";
 import uglify from 'rollup-plugin-uglify'
 
 rollup({

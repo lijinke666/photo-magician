@@ -1,6 +1,6 @@
 {
   "name": "photo-magician",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Provide some common image process apis with canvas",
   "repository": {
     "type": "git",
