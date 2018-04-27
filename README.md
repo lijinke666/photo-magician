@@ -70,7 +70,7 @@ magician
   })
   .catch(error => {
     console.error("toBase64Url error", err);
-  })(
+  })
 
 //use ES7
 async () => {
