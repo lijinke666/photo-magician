@@ -78,6 +78,10 @@
                 <img src="./assets//watermark.png"/>
             </p>
         </div>
+        <div class="demo-section rotateImage">
+            <h3 class="title">rotateImage()</h3>
+            <p class="demo-content rotateImage-content"></p>
+        </div>
         <div class="demo-section addWaterMark">
             <h3 class="title">addWaterMark({mode: "image"})</h3>
             <p class="demo-content addWaterMark-img-content"></p>
@@ -160,6 +164,16 @@
         $('.clipImage-content').appendChild(imageNode)
     }).catch((err) => {
         console.error('clipImage error', err);
+    })
+
+    //旋转
+    magician.rotateImage({
+        cover:baseImageUrl,
+        rotate:40
+    }).then((imageNode) => {
+        $('.rotateImage-content').appendChild(imageNode)
+    }).catch((err) => {
+        console.error('rotate image error', err);
     })
 
     //添加水印 (图片)

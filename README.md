@@ -20,6 +20,15 @@ using `npm` :
 npm install photo-magician --save
 ```
 
+using in the browser : 
+
+```js
+<script src="photoMagician.min.js"></script>
+<script>
+    magician.toBase64Url({cover:"YOUR_IMG_URL"})
+</script>
+```
+
 ## Screenshots
 
 ![https://github.com/lijinke666/photo-magician/bolb/master/assets/screenshot.png](https://github.com/lijinke666/photo-magician/blob/master/assets/screenshot.png)
@@ -48,15 +57,6 @@ const magician = new photoMagician();
 magician.toBase64Url({ cover: "YOUR_IMG_URL" });
 ```
 
-> Use in the browser
-
-```js
-<script src="photoMagician.min.js"></script>
-<script>
-    magician.toBase64Url({cover:"YOUR_IMG_URL"})
-</script>
-```
-
 Return to the promise
 
 ```js
@@ -71,13 +71,14 @@ magician
   .catch(error => {
     console.error("toBase64Url error", err);
   })(
-  //use ES7
-  async () => {
-    const data = await magician.toBase64Url({
-      cover: baseImageUrl
-    });
-    console.log("image data:", data);
-  }
+
+//use ES7
+async () => {
+  const data = await magician.toBase64Url({
+    cover: baseImageUrl
+  });
+  console.log("image data:", data);
+}
 ```
 
 ## Development
