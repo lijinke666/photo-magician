@@ -6,6 +6,8 @@
 
 :art: Provide some common image process apis with canvas
 
+[React Version](https://github.com/lijinke666/react-image-process)
+
 ## Installation
 
 using `yarn` :
