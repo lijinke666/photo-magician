@@ -27,6 +27,7 @@ using in the browser :
 ```js
 <script src="photoMagician.min.js"></script>
 <script>
+    const magician = new photoMagician()
     magician.toBase64Url({cover:"YOUR_IMG_URL"})
 </script>
 ```
