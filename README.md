@@ -143,7 +143,7 @@ magician.compressImage({
 magician.clipImage({
   cover: baseImageUrl,
   scale: 1.0,
-  coordinate: [[200, 200], [300, 300]]
+  coordinate: [[200, 200], [[300, 300]]
 });
 
 /**
