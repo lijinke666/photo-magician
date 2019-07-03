@@ -1,151 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>photoMagician examples</title>
     <style>
-        h1.title {
-            margin-bottom: 30px;
-            padding: 20px 0;
-            text-align: center;
-            font-weight: 500;
-            border-bottom: 1px solid
-        }
+      h1.title {
+        margin-bottom: 30px;
+        padding: 20px 0;
+        text-align: center;
+        font-weight: 500;
+        border-bottom: 1px solid;
+      }
 
-        .flex {
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            padding: 50px 20px;
-        }
+      .flex {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 50px 20px;
+      }
 
-        .demo-section {
-            flex-basis: 440px;
-            height: 440px;
-            text-align: center;
-            border: 1px solid #ccc;
-            overflow: hidden;
-            float: left;
-            margin: 0 50px 50px 0;
-            box-shadow: 0 0 2px rgba(0, 0, 0, .1);
-            position: relative;
-            transition: .5s cubic-bezier(0.165, 0.84, 0.44, 1)
-        }
-        .demo-section:hover{
-            box-shadow:  0 0 20px rgba(0,0,0,.4)
-        }
+      .demo-section {
+        flex-basis: 440px;
+        height: 440px;
+        text-align: center;
+        border: 1px solid #ccc;
+        overflow: hidden;
+        float: left;
+        margin: 0 50px 50px 0;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+        position: relative;
+        transition: 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+      .demo-section:hover {
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      }
 
-        .demo-section:hover>.preview-code {
-            opacity: 1;
-            transform: scale(1)
-        }
+      .demo-section:hover > .preview-code {
+        opacity: 1;
+        transform: scale(1);
+      }
 
-        .demo-section .preview-code {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #3965;
-            left: 0;
-            top: 0;
-            font-size: 32px;
-            color: #fff;
-            text-align: center;
-            line-height: 440px;
-            cursor: pointer;
-            opacity: 0;
-            transform: scale(0);
-            transition: .5s cubic-bezier(0.175, 0.885, 0.32, 1)
-        }
+      .demo-section .preview-code {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #3965;
+        left: 0;
+        top: 0;
+        font-size: 32px;
+        color: #fff;
+        text-align: center;
+        line-height: 440px;
+        cursor: pointer;
+        opacity: 0;
+        transform: scale(0);
+        transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1);
+      }
 
-        .demo-section img {
-            text-align: center;
-            max-width: 100%;
-        }
+      .demo-section img {
+        text-align: center;
+        max-width: 100%;
+      }
 
-        .demo-section .title {
-            font-weight: 500
-        }
+      .demo-section .title {
+        font-weight: 500;
+      }
 
-        .demo-section .demo-content {
-            border-top: 1px solid #ccc;
-        }
+      .demo-section .demo-content {
+        border-top: 1px solid #ccc;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <h1 class="title">photoMagician | Provide some common image process apis with canvas 【
-        <a href="https://github.com/lijinke666/photo-magician/blob/master/index.html" target="_blank">Source Code</a>】</h1>
+  <body>
+    <h1 class="title">
+      photoMagician | Provide some common image process apis with canvas 【
+      <a
+        href="https://github.com/lijinke666/photo-magician/blob/master/index.html"
+        target="_blank"
+        >Source Code</a
+      >】
+    </h1>
     <div class="flex">
-        <div class="demo-section base">
-            <h3 class="title">Base Image</h3>
-            <p class="demo-content base-content">
-                <img src="" alt="" class="base-img">
-            </p>
-            <div class="preview-code">preview code</div>
-        </div>
-        <div class="demo-section compress">
-            <h3 class="title">compressImage()</h3>
-            <p class="demo-content compress-content"></p>
-            <div class="preview-code">preview code</div>
-        </div>
-        <div class="demo-section base64Url">
-            <h3 class="title">toBase64Url()</h3>
-            <p class="demo-content base64Url-content"></p>
-            <div class="preview-code">preview code</div>
-        </div>
-        <div class="demo-section clipImage">
-            <h3 class="title">clipImage()</h3>
-            <p class="demo-content clipImage-content"></p>
-            <div class="preview-code">preview code</div>
-        </div>
-        <div class="demo-section primaryColor">
-            <h3 class="title">getPrimaryColor()</h3>
-            <p class="demo-content primaryColor-content">
-                <img src="./assets//watermark.png" />
-            </p>
-            <div class="preview-code">preview code</div>
-        </div>
-        <div class="demo-section rotateImage">
-            <h3 class="title">rotateImage()</h3>
-            <p class="demo-content rotateImage-content"></p>
-            <div class="preview-code">preview code</div>
-        </div>
-        <div class="demo-section addWaterMark-image">
-            <h3 class="title">addWaterMark({mode: "image"})</h3>
-            <p class="demo-content addWaterMark-img-content"></p>
-            <div class="preview-code">preview code</div>
-        </div>
-        <div class="demo-section addWaterMark-text">
-            <h3 class="title">addWaterMark({mode: "text"})</h3>
-            <p class="demo-content addWaterMark-text-content"></p>
-            <div class="preview-code">preview code</div>
-        </div>
-        <div class="demo-section addImageFilter-vintage">
-            <h3 class="title">addImageFilter({mode: "vintage"})</h3>
-            <p class="demo-content vintage-content"></p>
-            <div class="preview-code">preview code</div>
-        </div>
-        <div class="demo-section addImageFilter-blackWhite">
-            <h3 class="title">addImageFilter({mode: "blackWhite"})</h3>
-            <p class="demo-content blackWhite-content"></p>
-            <div class="preview-code">preview code</div>
-        </div>
-        <div class="demo-section addImageFilter-relief">
-            <h3 class="title">addImageFilter({mode:"relief"})</h3>
-            <p class="demo-content relief-content"></p>
-            <div class="preview-code">preview code</div>
-        </div>
-        <div class="demo-section addImageFilter-blur">
-            <h3 class="title">addImageFilter({mode:"blur"})</h3>
-            <p class="demo-content blur-content"></p>
-            <div class="preview-code">preview code</div>
-        </div>
-        <!-- <div class="demo-section addImageFilter">
+      <div class="demo-section base">
+        <h3 class="title">Base Image</h3>
+        <p class="demo-content base-content">
+          <img src="" alt="" class="base-img" />
+        </p>
+        <div class="preview-code">preview code</div>
+      </div>
+      <div class="demo-section compress">
+        <h3 class="title">compressImage()</h3>
+        <p class="demo-content compress-content"></p>
+        <div class="preview-code">preview code</div>
+      </div>
+      <div class="demo-section base64Url">
+        <h3 class="title">toBase64Url()</h3>
+        <p class="demo-content base64Url-content"></p>
+        <div class="preview-code">preview code</div>
+      </div>
+      <div class="demo-section clipImage">
+        <h3 class="title">clipImage()</h3>
+        <p class="demo-content clipImage-content"></p>
+        <div class="preview-code">preview code</div>
+      </div>
+      <div class="demo-section primaryColor">
+        <h3 class="title">getPrimaryColor()</h3>
+        <p class="demo-content primaryColor-content">
+          <img src="./assets//watermark.png" />
+        </p>
+        <div class="preview-code">preview code</div>
+      </div>
+      <div class="demo-section rotateImage">
+        <h3 class="title">rotateImage()</h3>
+        <p class="demo-content rotateImage-content"></p>
+        <div class="preview-code">preview code</div>
+      </div>
+      <div class="demo-section addWaterMark-image">
+        <h3 class="title">addWaterMark({mode: "image"})</h3>
+        <p class="demo-content addWaterMark-img-content"></p>
+        <div class="preview-code">preview code</div>
+      </div>
+      <div class="demo-section addWaterMark-text">
+        <h3 class="title">addWaterMark({mode: "text"})</h3>
+        <p class="demo-content addWaterMark-text-content"></p>
+        <div class="preview-code">preview code</div>
+      </div>
+      <div class="demo-section addImageFilter-vintage">
+        <h3 class="title">addImageFilter({mode: "vintage"})</h3>
+        <p class="demo-content vintage-content"></p>
+        <div class="preview-code">preview code</div>
+      </div>
+      <div class="demo-section addImageFilter-blackWhite">
+        <h3 class="title">addImageFilter({mode: "blackWhite"})</h3>
+        <p class="demo-content blackWhite-content"></p>
+        <div class="preview-code">preview code</div>
+      </div>
+      <div class="demo-section addImageFilter-relief">
+        <h3 class="title">addImageFilter({mode:"relief"})</h3>
+        <p class="demo-content relief-content"></p>
+        <div class="preview-code">preview code</div>
+      </div>
+      <div class="demo-section addImageFilter-blur">
+        <h3 class="title">addImageFilter({mode:"blur"})</h3>
+        <p class="demo-content blur-content"></p>
+        <div class="preview-code">preview code</div>
+      </div>
+      <!-- <div class="demo-section addImageFilter">
             <h3 class="title">反色滤镜:addImageFilter()</h3>
             <p class="demo-content invert-content"></p>
         </div>
@@ -154,84 +159,100 @@
             <p class="demo-content mirror-content"></p>
         </div> -->
     </div>
-</body>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="./photoMagician.min.js"></script>
-<script>
-    const baseImageUrl = './assets/demo.jpg'
-    const watermark = './assets/watermark.png'
+  </body>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="./photoMagician.min.js"></script>
+  <script>
+    const baseImageUrl = "./assets/demo.jpg";
+    const watermark = "./assets/watermark.png";
 
-    const $ = (selector) => document.querySelector(selector)
-    const magician = new photoMagician()
+    const $ = selector => document.querySelector(selector);
+    const magician = new photoMagician();
 
-    $('.base-img').src = baseImageUrl
-
+    $(".base-img").src = baseImageUrl;
 
     // 图片转base64
-    magician.toBase64Url({
+    magician
+      .toBase64Url({
         cover: baseImageUrl
-    }).then((data) => {
-        $('.base64Url-content').innerHTML = `<img src="${data}"/>`
-    }).catch((err) => {
-        console.error('toBase64Url error', err);
-    })
+      })
+      .then(data => {
+        $(".base64Url-content").innerHTML = `<img src="${data}"/>`;
+      })
+      .catch(err => {
+        console.error("toBase64Url error", err);
+      });
 
-    magician.getPrimaryColor({ cover: watermark })
-        .then((color) => {
-            $('.primaryColor').style.border = `1px solid ${color}`
-        }).catch((err) => {
-            console.error('getPrimaryColor error', err);
-        })
+    magician
+      .getPrimaryColor({ cover: watermark })
+      .then(color => {
+        $(".primaryColor").style.border = `1px solid ${color}`;
+      })
+      .catch(err => {
+        console.error("getPrimaryColor error", err);
+      });
 
     //压缩图片
-    magician.compressImage({
+    magician
+      .compressImage({
         cover: baseImageUrl,
-        quality: 0.12,
-    }).then((data) => {
-        $('.compress-content').innerHTML = `<img src="${data}"/>`
-    }).catch((err) => {
-        console.error('compressImage error', err);
-    })
+        quality: 0.12
+      })
+      .then(data => {
+        $(".compress-content").innerHTML = `<img src="${data}"/>`;
+      })
+      .catch(err => {
+        console.error("compressImage error", err);
+      });
 
     //裁剪图片
-    magician.clipImage({
+    magician
+      .clipImage({
         cover: baseImageUrl,
         scale: 1.0,
-        coordinate: [[200, 200], [300, 300]],             //裁剪坐标 [x1,y1], [x2,y2]
-    }).then((data) => {
-        $('.clipImage-content').innerHTML = `<img src="${data}"/>`
-    }).catch((err) => {
-        console.error('clipImage error', err);
-    })
+        coordinate: [[200, 200], [300, 300]] //裁剪坐标 [x1,y1], [x2,y2]
+      })
+      .then(data => {
+        $(".clipImage-content").innerHTML = `<img src="${data}"/>`;
+      })
+      .catch(err => {
+        console.error("clipImage error", err);
+      });
 
     //旋转
-    magician.rotateImage({
+    magician
+      .rotateImage({
         cover: baseImageUrl,
         rotate: 40
-    }).then((data) => {
-        $('.rotateImage-content').innerHTML = `<img src="${data}"/>`
-
-    }).catch((err) => {
-        console.error('rotate image error', err);
-    })
+      })
+      .then(data => {
+        $(".rotateImage-content").innerHTML = `<img src="${data}"/>`;
+      })
+      .catch(err => {
+        console.error("rotate image error", err);
+      });
 
     //添加水印 (图片)
-    magician.addWaterMark({
+    magician
+      .addWaterMark({
         cover: baseImageUrl,
         mode: "image",
         waterMark: watermark,
         width: 60,
         height: 60,
         opacity: 0.8,
-        coordinate: [330, 300],
-    }).then((data) => {
-        $('.addWaterMark-img-content').innerHTML = `<img src="${data}"/>`
-    }).catch((err) => {
-        console.error('add image WaterMark error', err);
-    })
+        coordinate: [330, 300]
+      })
+      .then(data => {
+        $(".addWaterMark-img-content").innerHTML = `<img src="${data}"/>`;
+      })
+      .catch(err => {
+        console.error("add image WaterMark error", err);
+      });
 
     //添加水印 (文字)
-    magician.addWaterMark({
+    magician
+      .addWaterMark({
         cover: baseImageUrl,
         mode: "text",
         waterMark: "photo-magician.js",
@@ -239,68 +260,81 @@
         fontSize: 20,
         fontColor: "#396",
         coordinate: [10, 20]
-    }).then((data) => {
-        $('.addWaterMark-text-content').innerHTML = `<img src="${data}"/>`
-    }).catch((err) => {
-        console.error('add text WaterMark error', err);
-    })
+      })
+      .then(data => {
+        $(".addWaterMark-text-content").innerHTML = `<img src="${data}"/>`;
+      })
+      .catch(err => {
+        console.error("add text WaterMark error", err);
+      });
 
     //添加图片滤镜  (复古)
-    magician.addImageFilter({
+    magician
+      .addImageFilter({
         cover: baseImageUrl,
         mode: "vintage"
-    }).then((data) => {
-        $('.vintage-content').innerHTML = `<img src="${data}"/>`
-    }).catch((err) => {
-        console.error('add image filter error', err);
-    })
+      })
+      .then(data => {
+        $(".vintage-content").innerHTML = `<img src="${data}"/>`;
+      })
+      .catch(err => {
+        console.error("add image filter error", err);
+      });
 
     //添加图片滤镜  (黑白)
-    magician.addImageFilter({
+    magician
+      .addImageFilter({
         cover: baseImageUrl,
         mode: "blackWhite"
-    }).then((data) => {
-        $('.blackWhite-content').innerHTML = `<img src="${data}"/>`
-    }).catch((err) => {
-        console.error('add image filter error', err);
-    })
+      })
+      .then(data => {
+        $(".blackWhite-content").innerHTML = `<img src="${data}"/>`;
+      })
+      .catch(err => {
+        console.error("add image filter error", err);
+      });
 
     //添加图片滤镜  (浮雕)
-    magician.addImageFilter({
+    magician
+      .addImageFilter({
         cover: baseImageUrl,
         mode: "relief"
-    }).then((data) => {
-        $('.relief-content').innerHTML = `<img src="${data}"/>`
-    }).catch((err) => {
-        console.error('add image filter error', err);
-    })
+      })
+      .then(data => {
+        $(".relief-content").innerHTML = `<img src="${data}"/>`;
+      })
+      .catch(err => {
+        console.error("add image filter error", err);
+      });
 
     //添加图片滤镜  (模糊)
-    magician.addImageFilter({
+    magician
+      .addImageFilter({
         cover: baseImageUrl,
         mode: "blur"
-    }).then((data) => {
-        $('.blur-content').innerHTML = `<img src="${data}"/>`
-    }).catch((err) => {
-        console.error('add image filter error', err);
-    })
-
+      })
+      .then(data => {
+        $(".blur-content").innerHTML = `<img src="${data}"/>`;
+      })
+      .catch(err => {
+        console.error("add image filter error", err);
+      });
 
     //preview code
 
-    $('.base').addEventListener('click', () => {
-        swal({
-            text: `
+    $(".base").addEventListener("click", () => {
+      swal({
+        text: `
             const baseImageUrl = './assets/demo.jpg'
             const watermark = './assets/watermark.png'
             const magician = new photoMagician()
             `
-        })
-    })
-    $('.compress').addEventListener('click', () => {
-        swal({
-            title: "compressImage()",
-            text: `
+      });
+    });
+    $(".compress").addEventListener("click", () => {
+      swal({
+        title: "compressImage()",
+        text: `
         magician.compressImage({
                 cover: baseImageUrl,
                 quality: 0.12,
@@ -310,13 +344,13 @@
             console.error(err);
         })
             `
-        })
-    })
+      });
+    });
 
-    $('.base64Url').addEventListener('click', () => {
-        swal({
-            title: "toBase64Url()",
-            text: `
+    $(".base64Url").addEventListener("click", () => {
+      swal({
+        title: "toBase64Url()",
+        text: `
             magician.toBase64Url({
                 cover: baseImageUrl
             }).then((data) => {
@@ -325,13 +359,13 @@
                 console.error('toBase64Url error', err);
             })
             `
-        })
-    })
+      });
+    });
 
-    $('.clipImage').addEventListener('click', () => {
-        swal({
-            title: "clipImage()",
-            text: `
+    $(".clipImage").addEventListener("click", () => {
+      swal({
+        title: "clipImage()",
+        text: `
             magician.clipImage({
                 cover: baseImageUrl,
                 scale: 1.0,
@@ -342,12 +376,12 @@
                 console.error('clipImage error', err);
             })
             `
-        })
-    })
-    $('.primaryColor').addEventListener('click', () => {
-        swal({
-            title: "getPrimaryColor()",
-            text: `
+      });
+    });
+    $(".primaryColor").addEventListener("click", () => {
+      swal({
+        title: "getPrimaryColor()",
+        text: `
             magician.getPrimaryColor({ cover: watermark })
                 .then((color) => {
                     console.log(color);
@@ -355,13 +389,13 @@
                     console.error('getPrimaryColor error', err);
                 })
             `
-        })
-    })
+      });
+    });
 
-    $('.rotateImage').addEventListener('click', () => {
-        swal({
-            title: "rotateImage()",
-            text: `
+    $(".rotateImage").addEventListener("click", () => {
+      swal({
+        title: "rotateImage()",
+        text: `
             magician.rotateImage({
                 cover: baseImageUrl,
                 rotate: 40
@@ -371,12 +405,12 @@
                 console.error('rotate image error', err);
             })
             `
-        })
-    })
-    $('.addWaterMark-image').addEventListener('click', () => {
-        swal({
-            title: "addWaterMark()",
-            text: `
+      });
+    });
+    $(".addWaterMark-image").addEventListener("click", () => {
+      swal({
+        title: "addWaterMark()",
+        text: `
                     magician.addWaterMark({
                         cover: baseImageUrl,
                         mode: "image",
@@ -391,12 +425,12 @@
                         console.error('add image WaterMark error', err);
                     })
             `
-        })
-    })
-    $('.addWaterMark-text').addEventListener('click', () => {
-        swal({
-            title: "addWaterMark()",
-            text: `
+      });
+    });
+    $(".addWaterMark-text").addEventListener("click", () => {
+      swal({
+        title: "addWaterMark()",
+        text: `
                     magician.addWaterMark({
                         cover: baseImageUrl,
                         mode: "text",
@@ -411,13 +445,13 @@
                         console.error('add text WaterMark error', err);
                     })
             `
-        })
-    })
+      });
+    });
 
-    $('.addImageFilter-vintage').addEventListener('click', () => {
-        swal({
-            title: "addImageFilter()",
-            text: `
+    $(".addImageFilter-vintage").addEventListener("click", () => {
+      swal({
+        title: "addImageFilter()",
+        text: `
                 magician.addImageFilter({
                     cover: baseImageUrl,
                     mode: "vintage"
@@ -427,14 +461,13 @@
                     console.error('add image filter error', err);
                 })
             `
-        })
-    })
+      });
+    });
 
-
-    $('.addImageFilter-blackWhite').addEventListener('click', () => {
-        swal({
-            title: "addImageFilter()",
-            text: `
+    $(".addImageFilter-blackWhite").addEventListener("click", () => {
+      swal({
+        title: "addImageFilter()",
+        text: `
                 magician.addImageFilter({
                     cover: baseImageUrl,
                     mode: "blackWhite"
@@ -444,14 +477,13 @@
                     console.error('add image filter error', err);
                 })
             `
-        })
-    })
+      });
+    });
 
-
-    $('.addImageFilter-relief').addEventListener('click', () => {
-        swal({
-            title: "addImageFilter()",
-            text: `
+    $(".addImageFilter-relief").addEventListener("click", () => {
+      swal({
+        title: "addImageFilter()",
+        text: `
                 magician.addImageFilter({
                     cover: baseImageUrl,
                     mode: "relief"
@@ -461,13 +493,13 @@
                     console.error('add image filter error', err);
                 })
             `
-        })
-    })
+      });
+    });
 
-    $('.addImageFilter-blur').addEventListener('click', () => {
-        swal({
-            title: "addImageFilter()",
-            text: `
+    $(".addImageFilter-blur").addEventListener("click", () => {
+      swal({
+        title: "addImageFilter()",
+        text: `
                 magician.addImageFilter({
                     cover: baseImageUrl,
                     mode: "blur"
@@ -477,10 +509,7 @@
                     console.error('add image filter error', err);
                 })
             `
-        })
-    })
-
-
-</script>
-
+      });
+    });
+  </script>
 </html>

@@ -12,14 +12,20 @@ export default class photoMagician {
     this.canvas = document.createElement("canvas");
     this.ctx = this.canvas.getContext("2d");
     //图片滤镜
-    this.imageFilterConfig = {
-      vintage: "vintage", //复古
-      blackWhite: "blackWhite", //黑白
-      invert: "invert", //反色
-      relief: "relief", //浮雕
-      mirror: "mirror", //镜像
-      blur: "blur" //模糊
-    };
+    this.imageFilterType = {
+      vintage: "vintage",
+      blackWhite: "blackWhite",
+      invert: "invert",
+      relief: "relief",
+      mirror: "mirror",
+      blur: "blur"
+    }; //复古 //黑白 //反色 //浮雕 //镜像 //模糊
+
+    this.outputType = { blob: "blob", dataUrl: "dataUrl" };
+    this.defaultImageQuality = 1.0;
+  }
+  setConfig({ imageQuality }) {
+    this.defaultImageQuality = imageQuality;
   }
   createImageNode(cover, canvasWidth, canvasHeight) {
     return new Promise((res, rej) => {
@@ -37,12 +43,9 @@ export default class photoMagician {
             canvasWidth || img.width,
             canvasHeight || img.height
           );
-          res({
-            suffix,
-            img
-          });
+          res({ suffix, img });
         };
-        img.onerror = e => rej(e);
+        img.onerror = rej;
       } else {
         const errText = "The cover options is not a String of Object\n";
         rej(errText);
@@ -61,6 +64,25 @@ export default class photoMagician {
   checkCoverType(cover) {
     if (!Object.is(typeof cover, "string"))
       throw new Error('cover can not be empty and it must be "string"');
+  }
+  getUrl({
+    outputType = this.outputType.dataUrl,
+    suffix,
+    quality = this.defaultImageQuality,
+    canvas = this.canvas
+  } = {}) {
+    return new Promise((res, rej) => {
+      const outputTypes = Object.values(this.outputType);
+      if (!outputTypes.includes(outputType)) {
+        const errMsg = `invalid output type, one of ${outputType.join("|")}`;
+        rej(errMsg);
+        throw new Error(errMsg);
+      }
+      if (outputType === this.outputType.dataUrl) {
+        res(canvas.toDataURL(`image/${suffix}`), quality);
+      }
+      canvas.toBlob(res, `image/${suffix}`, quality);
+    });
   }
   /**
    * 添加水印
@@ -84,7 +106,8 @@ export default class photoMagician {
     width = 50,
     height = 50,
     opacity = 0.5,
-    waterMark
+    waterMark,
+    outputType
   } = {}) {
     if (!Array.isArray(coordinate) || coordinate.length !== 2) {
       throw new Error("coordinate must be a array. like [x,y]");
@@ -139,7 +162,7 @@ export default class photoMagician {
       isImageMode ? this.waterMarkCanvas.height : img.height
     );
 
-    return this.canvas.toDataURL(`image/${suffix}`);
+    return await this.getUrl({ outputType, suffix });
   }
   /**
    * 裁剪图片
@@ -149,7 +172,7 @@ export default class photoMagician {
    * @param {Array} coordinate 裁剪坐标  必选  [[x1,y1],[x2,y2]]
    * @return 裁剪后的图片节点
    */
-  async clipImage({ cover, scale = 1.0, coordinate = [] } = {}) {
+  async clipImage({ cover, scale = 1.0, coordinate = [], outputType } = {}) {
     if (coordinate.some(value => !Array.isArray(value) || value.length !== 2)) {
       throw new Error("coordinate must be a array, like [[x1,y1],[x2,y2]]");
     }
@@ -180,7 +203,7 @@ export default class photoMagician {
       clipHeight
     );
 
-    return this.canvas.toDataURL(`image/${suffix}`);
+    return await this.getUrl({ outputType, suffix });
   }
   //拷贝图片像素信息
   copyImageData({ width, height, data } = {}) {
@@ -189,7 +212,7 @@ export default class photoMagician {
     return copyData;
   }
   //获取图片像素信息
-  transFormImageData(filterType, suffix) {
+  async transFormImageData(filterType, suffix, outputType) {
     //每一个像素由4个元素组成  分别是  r g b a
     //所以 第 i 个元素  是
     //r = pixelData[ i*4 +0 ];
@@ -216,7 +239,7 @@ export default class photoMagician {
 
     switch (filterType) {
       //复古 (灰白)
-      case this.imageFilterConfig["vintage"]:
+      case this.imageFilterType["vintage"]:
         for (let i = 0; i < canvasArea; i++) {
           let r = data[i * 4],
             g = data[i * 4 + 1],
@@ -229,7 +252,7 @@ export default class photoMagician {
         }
         break;
       //黑白
-      case this.imageFilterConfig["blackWhite"]:
+      case this.imageFilterType["blackWhite"]:
         for (let i = 0; i < canvasArea; i++) {
           let r = data[i * 4],
             g = data[i * 4 + 1],
@@ -250,7 +273,7 @@ export default class photoMagician {
         break;
       //反色 以下几个滤镜是copy 的网上的代码
 
-      case this.imageFilterConfig["invert"]:
+      case this.imageFilterType["invert"]:
         for (let i = 0; i < canvasArea; i += 4) {
           let r = data[i],
             g = data[i + 1],
@@ -262,7 +285,7 @@ export default class photoMagician {
         }
         break;
       //浮雕
-      case this.imageFilterConfig["relief"]:
+      case this.imageFilterType["relief"]:
         for (let x = 1; x < tempData.width - 1; x++) {
           for (let y = 1; y < tempData.height - 1; y++) {
             let idx = (x + y * tempData.width) * 4,
@@ -285,7 +308,7 @@ export default class photoMagician {
         }
         break;
       //镜像
-      case this.imageFilterConfig["mirror"]:
+      case this.imageFilterType["mirror"]:
         for (let x = 0; x < tempData.width; x++) {
           for (let y = 0; y < tempData.height; y++) {
             let idx = (x + y * tempData.width) * 4;
@@ -298,7 +321,7 @@ export default class photoMagician {
           }
         }
         break;
-      case this.imageFilterConfig["blur"]:
+      case this.imageFilterType["blur"]:
         for (let x = 0; x < tempData.width; x++) {
           for (let y = 0; y < tempData.height; y++) {
             // Index of the pixel in the array
@@ -351,7 +374,7 @@ export default class photoMagician {
       this.filterCanvas.width,
       this.filterCanvas.height
     );
-    return this.filterCanvas.toDataURL(`image/${suffix}`);
+    return await this.getUrl({ outputType, suffix, canvas: this.filterCanvas });
   }
   /**
    * 图片滤镜
@@ -360,22 +383,23 @@ export default class photoMagician {
    */
   async addImageFilter({
     cover,
-    mode = this.imageFilterConfig["vintage"]
+    mode = this.imageFilterType["vintage"],
+    outputType
   } = {}) {
-    const imageFilterConfig = Object.values(this.imageFilterConfig);
+    const imageFilterConfig = Object.values(this.imageFilterType);
     if (!imageFilterConfig.includes(mode)) {
       throw new Error(`mode must one of [${imageFilterConfig.join(",")}]`);
     }
     const { img, suffix } = await this.createImageNode(cover);
     this.ctx.drawImage(img, 0, 0, img.width, img.height);
-    return this.transFormImageData(mode, suffix);
+    return this.transFormImageData(mode, suffix, outputType);
   }
   /**
    * 旋转图片
    * @param {String | Object} cover 图片
    * @param {Number} rotate 旋转比例 (0 -360 ) deg
    */
-  async rotateImage({ cover, rotate = 0 } = {}) {
+  async rotateImage({ cover, rotate = 0, outputType } = {}) {
     if (!Object.is(typeof rotate, "number")) {
       throw new Error("rotate must be a number.");
     }
@@ -384,7 +408,7 @@ export default class photoMagician {
     this.ctx.rotate(rotate * Math.PI / 180);
     this.ctx.drawImage(img, 0, 0, img.width, img.height);
     this.ctx.restore();
-    return this.canvas.toDataURL(`image/${suffix}`);
+    return await this.getUrl({ outputType, suffix });
   }
   /**
    * 图片 转base64
@@ -392,10 +416,10 @@ export default class photoMagician {
    * @param {String | Object} cover 图片地址
    * @return 图片base64 data
    */
-  async toBase64Url({ cover }) {
+  async toBase64Url({ cover, outputType }) {
     const { img, suffix } = await this.createImageNode(cover);
     this.ctx.drawImage(img, 0, 0, img.width, img.height);
-    return this.canvas.toDataURL(`image/${suffix}`);
+    return await this.getUrl({ outputType, suffix });
   }
   /**
    * 压缩图片
@@ -404,16 +428,15 @@ export default class photoMagician {
    * @param {Number}  quality 压缩比例  非必选 默认 '0.92'
    * @return 压缩后的图片节点
    */
-  async compressImage({ cover, quality = 0.92 } = {}) {
+  async compressImage({ cover, quality = 0.92, outputType } = {}) {
     if (!Object.is(typeof quality, "number")) {
       throw new Error("quality must be a number.");
     }
     const { img } = await this.createImageNode(cover);
     this.ctx.drawImage(img, 0, 0, img.width, img.height);
-    return this.canvas.toDataURL(
-      quality === 0.92 ? "image/png" : "image/jpeg",
-      Number(quality)
-    );
+    const _quality = Number(quality);
+    const suffix = _quality === 0.92 ? "png" : "jpeg";
+    return await this.getUrl({ outputType, suffix, quality: _quality });
   }
   async getPrimaryColor({ cover } = {}) {
     const { img } = await this.createImageNode(cover);
@@ -437,21 +460,13 @@ export default class photoMagician {
       if (this.colors[rgba]) {
         this.colors[rgba].num++;
       } else {
-        this.colors[rgba] = {
-          color: rgba,
-          num: 1
-        };
+        this.colors[rgba] = { color: rgba, num: 1 };
       }
     }
-    return this.getMax(this.colors);
+    return this.getMaxPixelDensity(this.colors);
   }
-  getMax(data) {
+  getMaxPixelDensity(data) {
     const sort = Object.values(data).sort((a, b) => a.num - b.num);
     return sort[sort.length - 1]["color"];
-  }
-  getValues(obj) {
-    return (
-      (Object.values && Object.values(obj)) || Object.keys(obj).map(v => obj[v])
-    );
   }
 }
