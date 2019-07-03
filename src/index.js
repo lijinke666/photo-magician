@@ -20,7 +20,6 @@ export default class photoMagician {
       mirror: "mirror",
       blur: "blur"
     }; //复古 //黑白 //反色 //浮雕 //镜像 //模糊
-
     this.outputType = { blob: "blob", dataUrl: "dataUrl" };
     this.defaultImageQuality = 1.0;
   }

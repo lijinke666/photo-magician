@@ -22,7 +22,7 @@ using `npm` :
 npm install photo-magician --save
 ```
 
-using in the browser : 
+using in the browser :
 
 ```js
 <script src="photoMagician.min.js"></script>
@@ -60,6 +60,16 @@ const magician = new photoMagician();
 magician.toBase64Url({ cover: "YOUR_IMG_URL" });
 ```
 
+> set config
+
+```js
+// set out put image data quality  [ 0 - 1 ]
+
+magician.setConfig({
+  imageQuality: 0.4
+});
+```
+
 Return to the promise
 
 ```js
@@ -73,7 +83,7 @@ magician
   })
   .catch(error => {
     console.error("toBase64Url error", err);
-  })
+  });
 
 //use ES7
 async () => {
@@ -81,7 +91,27 @@ async () => {
     cover: baseImageUrl
   });
   console.log("image data:", data);
-}
+};
+```
+
+outputType
+
+```js
+async () => {
+  // outputType = 'dataUrl'  default
+  const data = await magician.toBase64Url({
+    cover: baseImageUrl,
+    outputType: "dataUrl"
+  });
+  console.log("image data:", data);
+
+  // outputType = 'blob'
+  const blob = await magician.toBase64Url({
+    cover: baseImageUrl,
+    outputType: "blob"
+  });
+  console.log("image blob:", URL.createObjectURL(blob));
+};
 ```
 
 ## Development

@@ -1,6 +1,6 @@
 {
   "name": "photo-magician",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Provide some common image process apis with canvas",
   "repository": {
     "type": "git",
@@ -29,8 +29,10 @@
   ],
   "scripts": {
     "start": "yarn build:browser && http-server",
-    "clear": "rimraf lib && rimraf photoMagician.js && rimraf photoMagician.min.js",
-    "minify": "uglifyjs imageMagician.js -o lib/photoMagician.min.js  --compress --mangle --comments /Copyright/",
+    "clear":
+      "rimraf lib && rimraf photoMagician.js && rimraf photoMagician.min.js",
+    "minify":
+      "uglifyjs imageMagician.js -o lib/photoMagician.min.js  --compress --mangle --comments /Copyright/",
     "build:node": "babel src -d lib",
     "build:browser": "babel-node buildBrowser",
     "build": "yarn clear && yarn build:node && yarn build:browser",
@@ -42,11 +44,7 @@
   },
   "pre-commit": "lint",
   "lint-staged": {
-    "src/**/*.js": [
-      "prettier --write",
-      "eslint_d --fix",
-      "git add"
-    ]
+    "src/**/*.js": ["prettier --write", "eslint_d --fix", "git add"]
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
@@ -91,26 +89,17 @@
     "validator": "^9.4.1"
   },
   "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json"
-    ],
-    "transformIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "modulePathIgnorePatterns": [
-      "/.history/"
-    ],
+    "moduleFileExtensions": ["js", "jsx", "json"],
+    "transformIgnorePatterns": ["/node_modules/"],
+    "modulePathIgnorePatterns": ["/.history/"],
     "setupTestFrameworkScriptFile": "<rootDir>/testSetup.js",
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
-    ],
+    "collectCoverageFrom": ["src/**/*.{js,jsx}"],
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     },
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__tests__/__mocks__/fileMock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/__tests__/__mocks__/fileMock.js",
       "\\.(css|less)$": "<rootDir>/__tests__/__mocks__/styleMock.js"
     },
     "testEnvironment": "<rootDir>/__tests__/__mocks__/jsdomMock.js"
