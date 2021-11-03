@@ -86,7 +86,7 @@
     "rollup-plugin-babel": "2.7.1",
     "rollup-plugin-uglify": "^3.0.0",
     "uglifyjs": "^2.4.11",
-    "validator": "^9.4.1"
+    "validator": "^13.7.0"
   },
   "jest": {
     "moduleFileExtensions": ["js", "jsx", "json"],
