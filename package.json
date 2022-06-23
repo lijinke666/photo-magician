@@ -76,7 +76,7 @@
     "eslint_d": "^5.3.0",
     "jest": "^22.4.3",
     "jest-environment-jsdom": "^22.4.3",
-    "jsdom": "^11.8.0",
+    "jsdom": "^16.5.0",
     "lint-staged": "^7.0.4",
     "power-assert": "^1.5.0",
     "pre-commit": "^1.2.2",
